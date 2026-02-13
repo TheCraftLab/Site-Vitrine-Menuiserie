@@ -3,51 +3,105 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menuiserie - Site vitrine</title>
+    <title>Menuiserie contemporaine - Site vitrine</title>
     <meta
       name="description"
       content="Menuiserie sur mesure: fabrication, rénovation et pose."
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <header class="hero" id="accueil">
-      <div class="overlay"></div>
-      <div class="hero-inner container">
-        <p class="badge" id="businessName">Atelier Menuiserie Dupont</p>
-        <h1 id="heroTitle">Votre menuisier sur mesure</h1>
-        <p id="heroSubtitle">
-          Fenêtres, portes, escaliers et agencements intérieurs avec finitions soignées.
-        </p>
-        <a class="btn" href="#contact">Demander un devis</a>
+    <div class="site-noise" aria-hidden="true"></div>
+    <header class="masthead" id="accueil">
+      <div class="topbar">
+        <div class="container topbar-inner">
+          <a href="#accueil" class="brand" id="businessName">Atelier Menuiserie Dupont</a>
+          <nav class="nav">
+            <a href="#a-propos">A propos</a>
+            <a href="#services">Services</a>
+            <a href="#realisations">Realisations</a>
+            <a href="#contact">Contact</a>
+          </nav>
+          <a class="btn btn-sm" href="#contact">Parler du projet</a>
+        </div>
+      </div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Agencement, renovation, sur mesure</p>
+          <h1 id="heroTitle">Votre menuisier sur mesure</h1>
+          <p id="heroSubtitle">
+            Fenêtres, portes, escaliers et agencements intérieurs avec finitions soignées.
+          </p>
+          <div class="hero-actions">
+            <a class="btn" href="#contact">Demander un devis</a>
+            <a class="btn btn-ghost" href="#realisations">Voir les realisations</a>
+          </div>
+        </div>
+        <aside class="hero-panel reveal">
+          <p class="panel-title">Finition nette. Delais tenus.</p>
+          <ul>
+            <li>Intervention locale rapide</li>
+            <li>Materiaux bois, PVC, aluminium</li>
+            <li>Pose et details soignes</li>
+          </ul>
+        </aside>
       </div>
     </header>
 
     <main>
-      <section class="section container" id="a-propos">
-        <h2>A propos</h2>
-        <p id="aboutText"></p>
+      <section class="section container reveal" id="a-propos">
+        <div class="section-head">
+          <p class="section-kicker">L'atelier</p>
+          <h2>Un style precis, une execution propre</h2>
+        </div>
+        <div class="about-grid">
+          <p id="aboutText"></p>
+          <div class="about-cards">
+            <article>
+              <h3>Etude technique</h3>
+              <p>Prise de cotes, conseil materiaux et contraintes du bati.</p>
+            </article>
+            <article>
+              <h3>Fabrication adaptee</h3>
+              <p>Details ajustes a votre interieur et a votre usage quotidien.</p>
+            </article>
+          </div>
+        </div>
       </section>
 
-      <section class="section section-muted" id="services">
+      <section class="section section-contrast" id="services">
         <div class="container">
-          <h2>Services</h2>
+          <div class="section-head reveal">
+            <p class="section-kicker">Savoir-faire</p>
+            <h2>Services de menuiserie moderne</h2>
+          </div>
           <div class="cards" id="servicesList"></div>
         </div>
       </section>
 
       <section class="section container" id="realisations">
-        <h2>Realisations</h2>
+        <div class="section-head reveal">
+          <p class="section-kicker">Portfolio</p>
+          <h2>Realisations recentes</h2>
+        </div>
         <div class="gallery" id="galleryList"></div>
       </section>
 
-      <section class="section section-muted" id="contact">
+      <section class="section section-contact" id="contact">
         <div class="container">
-          <h2>Contact</h2>
-          <p id="ctaText"></p>
+          <div class="contact-card reveal">
+            <h2>Parlons de votre projet</h2>
+            <p id="ctaText"></p>
+          </div>
           <div class="contact-grid">
-            <a id="phoneLink" href="#">Tel</a>
-            <a id="emailLink" href="#">Email</a>
+            <a id="phoneLink" href="#" class="reveal">Tel</a>
+            <a id="emailLink" href="#" class="reveal">Email</a>
           </div>
         </div>
       </section>
@@ -55,10 +109,7 @@
 
     <footer class="footer">
       <div class="container">
-        <small
-          >© <span id="year"></span> <span id="footerBusinessName">Atelier Menuiserie
-          Dupont</span></small
-        >
+        <small>© <span id="year"></span> <span id="footerBusinessName">Atelier Menuiserie Dupont</span></small>
       </div>
     </footer>
 

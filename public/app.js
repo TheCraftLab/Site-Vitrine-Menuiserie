@@ -6,13 +6,47 @@ async function loadContent() {
   return response.json();
 }
 
+let revealObserver = null;
+
+function ensureRevealObserver() {
+  if (revealObserver || !("IntersectionObserver" in window)) return;
+  revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
+  );
+}
+
+function registerReveals(scope = document) {
+  const elements = scope.querySelectorAll(".reveal");
+  if (!elements.length) return;
+
+  if (!("IntersectionObserver" in window)) {
+    elements.forEach((element) => element.classList.add("is-visible"));
+    return;
+  }
+
+  ensureRevealObserver();
+  elements.forEach((element) => {
+    if (element.dataset.revealBound === "1") return;
+    element.dataset.revealBound = "1";
+    revealObserver.observe(element);
+  });
+}
+
 function renderServices(services) {
   const container = document.getElementById("servicesList");
   container.innerHTML = "";
 
-  services.forEach((service) => {
+  services.forEach((service, index) => {
     const article = document.createElement("article");
-    article.className = "card";
+    article.className = "card reveal is-stagger";
+    article.style.setProperty("--i", String(index));
     const title = document.createElement("h3");
     title.textContent = service.title;
     const description = document.createElement("p");
@@ -35,9 +69,10 @@ function renderGallery(gallery) {
     return;
   }
 
-  gallery.forEach((item) => {
+  gallery.forEach((item, index) => {
     const figure = document.createElement("figure");
-    figure.className = "gallery-item";
+    figure.className = "gallery-item reveal is-stagger";
+    figure.style.setProperty("--i", String(index));
     const image = document.createElement("img");
     image.src = item.url;
     image.alt = item.alt;
@@ -71,10 +106,12 @@ function renderContent(content) {
 
   renderServices(content.services || []);
   renderGallery(content.gallery || []);
+  registerReveals(document);
 }
 
 async function init() {
   try {
+    registerReveals(document);
     const content = await loadContent();
     renderContent(content);
     document.getElementById("year").textContent = new Date().getFullYear();
