@@ -1,15 +1,15 @@
 :root {
-  --bg: #ece8e1;
-  --bg-soft: #f5f2ec;
-  --surface: rgba(255, 255, 255, 0.76);
-  --surface-solid: #fffcf7;
-  --ink: #1f2430;
-  --ink-soft: #535c69;
-  --line: rgba(39, 47, 57, 0.14);
-  --accent: #c67232;
-  --accent-strong: #a4571f;
-  --accent-soft: rgba(198, 114, 50, 0.12);
-  --shadow: 0 20px 45px rgba(24, 28, 35, 0.13);
+  --bg: #e9e3da;
+  --bg-soft: #f5f0e8;
+  --surface: rgba(255, 253, 249, 0.84);
+  --surface-solid: #fefbf6;
+  --ink: #161a20;
+  --ink-soft: #4d5560;
+  --line: rgba(24, 30, 38, 0.16);
+  --accent: #a98352;
+  --accent-strong: #8f6b3f;
+  --accent-soft: rgba(169, 131, 82, 0.18);
+  --shadow: 0 24px 52px rgba(19, 22, 27, 0.15);
 }
 
 *,
@@ -28,9 +28,9 @@ body {
   line-height: 1.58;
   font-family: "Manrope", "Avenir Next", "Segoe UI", sans-serif;
   background:
-    radial-gradient(circle at 10% 8%, rgba(255, 188, 129, 0.38), transparent 40%),
-    radial-gradient(circle at 90% 20%, rgba(110, 141, 169, 0.2), transparent 48%),
-    linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 52%, #e7e2d9 100%);
+    radial-gradient(circle at 10% 8%, rgba(214, 179, 136, 0.33), transparent 40%),
+    radial-gradient(circle at 87% 18%, rgba(103, 115, 133, 0.18), transparent 48%),
+    linear-gradient(180deg, var(--bg-soft) 0%, var(--bg) 56%, #e3ddd3 100%);
   min-height: 100vh;
 }
 
@@ -39,7 +39,7 @@ body {
   inset: 0;
   pointer-events: none;
   z-index: -1;
-  opacity: 0.08;
+  opacity: 0.04;
   background-image:
     radial-gradient(#000 0.5px, transparent 0.5px),
     radial-gradient(#000 0.5px, transparent 0.5px);
@@ -56,7 +56,7 @@ body {
 
 .masthead {
   position: relative;
-  padding-bottom: 3.5rem;
+  padding-bottom: 4rem;
 }
 
 .topbar {
@@ -67,60 +67,70 @@ body {
 }
 
 .topbar-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(270px, 1fr) auto auto;
   align-items: center;
-  justify-content: space-between;
-  gap: 0.8rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  padding: 0.58rem 0.7rem 0.58rem 1.05rem;
-  background: rgba(255, 252, 246, 0.82);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 7px 20px rgba(29, 33, 39, 0.08);
+  gap: 1rem;
+  border: 1px solid rgba(18, 24, 31, 0.14);
+  border-radius: 1rem;
+  padding: 0.7rem 0.85rem 0.78rem 1.15rem;
+  background: rgba(255, 252, 246, 0.76);
+  backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(19, 23, 30, 0.1);
 }
 
 .brand {
-  font-family: "Sora", "Avenir Next", sans-serif;
-  font-weight: 800;
-  letter-spacing: -0.02em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: clamp(1.6rem, 3.4vw, 2.75rem);
+  line-height: 1;
+  font-weight: 700;
+  letter-spacing: 0.02em;
   color: var(--ink);
   text-decoration: none;
-  white-space: nowrap;
+  white-space: normal;
+  text-wrap: balance;
 }
 
 .nav {
   display: flex;
-  gap: 0.9rem;
+  gap: 0.55rem;
+  padding: 0.2rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(26, 33, 42, 0.1);
 }
 
 .nav a {
   text-decoration: none;
   color: var(--ink-soft);
   font-weight: 600;
-  font-size: 0.93rem;
-  padding: 0.38rem 0.6rem;
-  border-radius: 0.5rem;
+  font-size: 0.84rem;
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
   transition: color 0.2s ease, background 0.2s ease;
 }
 
 .nav a:hover {
-  background: rgba(255, 255, 255, 0.65);
+  background: rgba(31, 36, 45, 0.08);
   color: var(--ink);
 }
 
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.3fr) minmax(0, 0.8fr);
-  gap: clamp(1rem, 2vw, 2rem);
+  gap: clamp(1rem, 2.2vw, 2.3rem);
   align-items: stretch;
-  margin-top: clamp(1.5rem, 4vw, 3.5rem);
+  margin-top: clamp(1.8rem, 4.2vw, 4rem);
 }
 
 .hero-copy {
   background:
-    linear-gradient(145deg, rgba(20, 25, 33, 0.93), rgba(35, 43, 55, 0.92)),
-    linear-gradient(110deg, rgba(198, 114, 50, 0.24), transparent);
-  border-radius: 1.4rem;
+    linear-gradient(145deg, rgba(15, 20, 27, 0.95), rgba(25, 31, 39, 0.96)),
+    radial-gradient(circle at 12% 10%, rgba(173, 132, 82, 0.23), transparent 45%);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 1.1rem;
   padding: clamp(1.6rem, 3.2vw, 3rem);
   color: #f9f6f2;
   box-shadow: var(--shadow);
@@ -132,27 +142,30 @@ body {
   align-items: center;
   gap: 0.5rem;
   padding: 0.28rem 0.72rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  font-size: 0.8rem;
-  letter-spacing: 0.06em;
+  font-size: 0.76rem;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: #e8cfac;
+  background: rgba(169, 131, 82, 0.15);
 }
 
 .hero-copy h1 {
   margin: 0;
-  font-family: "Sora", "Avenir Next", sans-serif;
-  letter-spacing: -0.03em;
-  line-height: 1.03;
-  font-size: clamp(2.1rem, 5vw, 4rem);
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  letter-spacing: -0.01em;
+  line-height: 0.98;
+  font-size: clamp(2.4rem, 5.5vw, 4.7rem);
   max-width: 12ch;
+  font-weight: 600;
 }
 
 .hero-copy p {
   margin-top: 1rem;
   margin-bottom: 0;
   max-width: 54ch;
-  color: rgba(249, 246, 242, 0.9);
+  color: rgba(249, 246, 242, 0.84);
 }
 
 .hero-actions {
@@ -168,11 +181,13 @@ body {
   justify-content: center;
   gap: 0.3rem;
   border: 1px solid transparent;
-  border-radius: 0.72rem;
+  border-radius: 0.48rem;
   padding: 0.74rem 1.08rem;
   text-decoration: none;
   font-weight: 700;
-  font-size: 0.95rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
   transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease, border-color 0.25s ease;
 }
 
@@ -192,26 +207,26 @@ body {
 }
 
 .btn-ghost {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.3);
   color: #fff;
 }
 
 .btn-ghost:hover {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .btn-sm {
-  font-size: 0.86rem;
-  padding: 0.58rem 0.88rem;
+  font-size: 0.74rem;
+  padding: 0.58rem 0.78rem;
   white-space: nowrap;
 }
 
 .hero-panel {
-  border: 1px solid var(--line);
+  border: 1px solid rgba(24, 31, 39, 0.18);
   background: var(--surface);
   backdrop-filter: blur(10px);
-  border-radius: 1.2rem;
+  border-radius: 0.95rem;
   padding: 1.2rem 1.3rem;
   box-shadow: var(--shadow);
   align-self: end;
@@ -219,15 +234,16 @@ body {
 
 .hero-panel .panel-title {
   margin: 0 0 0.75rem;
-  font-family: "Sora", "Avenir Next", sans-serif;
-  font-weight: 700;
-  letter-spacing: -0.02em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: clamp(1.35rem, 2.2vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: 0.01em;
 }
 
 .hero-panel ul {
   margin: 0;
   padding-left: 1rem;
-  color: var(--ink-soft);
+  color: #353d46;
   display: grid;
   gap: 0.5rem;
 }
@@ -243,17 +259,19 @@ body {
 .section-kicker {
   margin: 0;
   text-transform: uppercase;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.14em;
   font-weight: 700;
-  font-size: 0.78rem;
-  color: #7b5d47;
+  font-size: 0.72rem;
+  color: #7a5d3f;
 }
 
 h2 {
   margin: 0.45rem 0 0;
-  font-family: "Sora", "Avenir Next", sans-serif;
-  font-size: clamp(1.5rem, 3.6vw, 2.45rem);
-  letter-spacing: -0.03em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  font-size: clamp(2rem, 4.1vw, 3.2rem);
+  letter-spacing: 0.005em;
+  line-height: 0.98;
+  font-weight: 600;
 }
 
 .about-grid {
@@ -264,8 +282,8 @@ h2 {
 
 #aboutText {
   margin: 0;
-  color: var(--ink-soft);
-  font-size: 1.03rem;
+  color: #4a525d;
+  font-size: 1.04rem;
 }
 
 .about-cards {
@@ -275,16 +293,19 @@ h2 {
 
 .about-cards article {
   border: 1px solid var(--line);
-  background: var(--surface-solid);
-  border-radius: 1rem;
-  padding: 1rem;
+  background:
+    linear-gradient(165deg, rgba(255, 255, 255, 0.96), rgba(250, 245, 237, 0.94));
+  border-radius: 0.9rem;
+  padding: 1.05rem;
   box-shadow: 0 8px 20px rgba(30, 34, 41, 0.07);
 }
 
 .about-cards h3 {
   margin: 0;
-  font-family: "Sora", "Avenir Next", sans-serif;
-  letter-spacing: -0.02em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  letter-spacing: 0.01em;
+  font-size: 1.55rem;
+  font-weight: 600;
 }
 
 .about-cards p {
@@ -294,13 +315,13 @@ h2 {
 
 .section-contrast {
   background:
-    linear-gradient(160deg, rgba(42, 50, 62, 0.95), rgba(29, 35, 43, 0.95)),
-    radial-gradient(circle at 10% 12%, rgba(198, 114, 50, 0.24), transparent 50%);
+    linear-gradient(160deg, rgba(19, 23, 30, 0.97), rgba(28, 34, 43, 0.97)),
+    radial-gradient(circle at 10% 12%, rgba(174, 136, 86, 0.26), transparent 50%);
   color: #fff;
 }
 
 .section-contrast .section-kicker {
-  color: #f0c8a6;
+  color: #e4c9a6;
 }
 
 .section-contrast h2 {
@@ -314,17 +335,19 @@ h2 {
 }
 
 .card {
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.06);
   backdrop-filter: blur(6px);
   padding: 1.05rem;
 }
 
 .card h3 {
   margin: 0;
-  font-family: "Sora", "Avenir Next", sans-serif;
-  letter-spacing: -0.02em;
+  font-family: "Cormorant Garamond", "Times New Roman", serif;
+  letter-spacing: 0.01em;
+  font-size: 1.6rem;
+  font-weight: 600;
 }
 
 .card p {
@@ -341,8 +364,8 @@ h2 {
 .gallery-item {
   margin: 0;
   background: var(--surface-solid);
-  border: 1px solid var(--line);
-  border-radius: 1rem;
+  border: 1px solid rgba(27, 33, 41, 0.15);
+  border-radius: 0.85rem;
   overflow: hidden;
   box-shadow: var(--shadow);
 }
@@ -352,12 +375,11 @@ h2 {
   width: 100%;
   aspect-ratio: 4 / 3;
   object-fit: cover;
+  transition: transform 0.35s ease;
 }
 
-.gallery-item figcaption {
-  padding: 0.72rem 0.85rem;
-  color: var(--ink-soft);
-  font-size: 0.92rem;
+.gallery-item:hover img {
+  transform: scale(1.03);
 }
 
 .empty-gallery {
@@ -374,9 +396,11 @@ h2 {
 }
 
 .contact-card {
-  background: linear-gradient(135deg, #fef6eb 0%, #ffe8d3 100%);
-  border: 1px solid #f0cfaf;
-  border-radius: 1.2rem;
+  background:
+    linear-gradient(140deg, rgba(255, 252, 247, 0.97), rgba(247, 236, 220, 0.92)),
+    radial-gradient(circle at 90% 10%, rgba(169, 131, 82, 0.2), transparent 45%);
+  border: 1px solid rgba(169, 131, 82, 0.34);
+  border-radius: 0.95rem;
   padding: clamp(1.1rem, 2.8vw, 1.8rem);
   box-shadow: var(--shadow);
 }
@@ -402,11 +426,11 @@ h2 {
   align-items: center;
   justify-content: center;
   text-decoration: none;
-  border-radius: 0.82rem;
+  border-radius: 0.52rem;
   padding: 0.84rem;
   font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  box-shadow: 0 8px 18px rgba(100, 54, 22, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 10px 20px rgba(91, 63, 35, 0.2);
 }
 
 .footer {
@@ -436,6 +460,9 @@ h2 {
 @media (max-width: 980px) {
   .topbar-inner {
     border-radius: 1rem;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
   }
 
   .hero-grid,
@@ -450,20 +477,19 @@ h2 {
 
 @media (max-width: 760px) {
   .topbar-inner {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.55rem;
+    gap: 0.65rem;
+    padding: 0.72rem;
   }
 
   .nav {
-    order: 3;
     width: 100%;
     justify-content: center;
     flex-wrap: wrap;
+    border-radius: 0.8rem;
   }
 
-  .btn-sm {
-    order: 2;
+  .brand {
+    font-size: clamp(1.75rem, 9vw, 2.25rem);
   }
 
   .section {
