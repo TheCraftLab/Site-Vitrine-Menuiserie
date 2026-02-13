@@ -29,14 +29,15 @@ Ensuite:
 
 ```bash
 cp .env.example .env
-# modifier ADMIN_PATH / ADMIN_USERNAME / ADMIN_PASSWORD dans .env
+# modifier PUBLIC_PORT / ADMIN_PATH / ADMIN_USERNAME / ADMIN_PASSWORD dans .env
 docker compose up -d --build
 ```
 
 Ensuite:
 
-- Site public: `http://localhost:8080`
-- Admin: `http://localhost:8080/<ADMIN_PATH>/`
+- Site public: `http://localhost:<PUBLIC_PORT>`
+- Admin: `http://localhost:<PUBLIC_PORT>/<ADMIN_PATH>/`
+- Exemple avec `PUBLIC_PORT=8081`: `http://localhost:8081`
 
 ## 3) Deploiement Portainer (Stack depuis Git)
 
@@ -46,13 +47,27 @@ Ensuite:
    - repository URL Git
    - chemin compose: `docker-compose.yml`
    - variables d'environnement:
+     - `PUBLIC_PORT` (port public, ex: `8081`)
      - `ADMIN_PATH` (chemin cache, ex: `atelier-admin`)
      - `ADMIN_USERNAME` (identifiant admin)
      - `ADMIN_PASSWORD` (mot de passe fort)
      - `TZ` (ex: `Europe/Paris`)
 4. Deploy stack.
 
-La stack expose le site sur le port `8080` du Raspberry Pi.
+La stack expose le site sur le port `PUBLIC_PORT` du Raspberry Pi.
+
+## 3.1) Livebox (acces externe sans 443)
+
+Si tu veux garder le port `443` libre, ouvre un autre port (ex: `8081`) sur la Livebox:
+
+- Protocole: `TCP`
+- Port externe: `8081`
+- IP interne: `192.168.1.32`
+- Port interne: `8081` (ou la valeur de `PUBLIC_PORT`)
+
+Ton site sera accessible via:
+
+- `http://IP_PUBLIQUE:8081`
 
 ## 4) Stockage des donnees
 
