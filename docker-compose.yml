@@ -1,0 +1,15 @@
+services:
+  vitrine:
+    build: .
+    container_name: vitrine-menuiserie
+    ports:
+      - "8080:3000"
+    environment:
+      ADMIN_TOKEN: ${ADMIN_TOKEN:-change-me-please}
+      TZ: ${TZ:-Europe/Paris}
+    volumes:
+      - vitrine_data:/data
+    restart: unless-stopped
+
+volumes:
+  vitrine_data:

@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "businessName": "Atelier Menuiserie Dupont",
+    "phone": "06 00 00 00 00",
+    "email": "contact@menuiserie-dupont.fr"
+  },
+  "hero": {
+    "title": "Votre menuisier sur mesure",
+    "subtitle": "Fenêtres, portes, escaliers et agencements intérieurs avec finitions soignées."
+  },
+  "about": "Nous accompagnons les particuliers et professionnels sur des projets de menuiserie bois, PVC et aluminium. Conseils, prise de cotes, fabrication et pose.",
+  "services": [
+    {
+      "title": "Fabrication sur mesure",
+      "description": "Conception et réalisation de menuiseries adaptées à vos dimensions et à votre style."
+    },
+    {
+      "title": "Rénovation",
+      "description": "Remplacement de menuiseries existantes avec amélioration de l'isolation et du confort."
+    },
+    {
+      "title": "Pose et finitions",
+      "description": "Installation propre, réglages précis et finitions pour un résultat durable."
+    }
+  ],
+  "cta": "Demandez un devis gratuit sous 48h.",
+  "gallery": []
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menuiserie - Site vitrine</title>
+    <meta
+      name="description"
+      content="Menuiserie sur mesure: fabrication, rénovation et pose."
+    />
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header class="hero" id="accueil">
+      <div class="overlay"></div>
+      <div class="hero-inner container">
+        <p class="badge" id="businessName">Atelier Menuiserie Dupont</p>
+        <h1 id="heroTitle">Votre menuisier sur mesure</h1>
+        <p id="heroSubtitle">
+          Fenêtres, portes, escaliers et agencements intérieurs avec finitions soignées.
+        </p>
+        <a class="btn" href="#contact">Demander un devis</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="section container" id="a-propos">
+        <h2>A propos</h2>
+        <p id="aboutText"></p>
+      </section>
+
+      <section class="section section-muted" id="services">
+        <div class="container">
+          <h2>Services</h2>
+          <div class="cards" id="servicesList"></div>
+        </div>
+      </section>
+
+      <section class="section container" id="realisations">
+        <h2>Realisations</h2>
+        <div class="gallery" id="galleryList"></div>
+      </section>
+
+      <section class="section section-muted" id="contact">
+        <div class="container">
+          <h2>Contact</h2>
+          <p id="ctaText"></p>
+          <div class="contact-grid">
+            <a id="phoneLink" href="#">Tel</a>
+            <a id="emailLink" href="#">Email</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container">
+        <small
+          >© <span id="year"></span> <span id="footerBusinessName">Atelier Menuiserie
+          Dupont</span></small
+        >
+      </div>
+    </footer>
+
+    <script src="/app.js" defer></script>
+  </body>
+</html>

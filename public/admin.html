@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin - Site vitrine</title>
+    <link rel="stylesheet" href="/admin.css" />
+  </head>
+  <body>
+    <main class="wrapper">
+      <header class="panel">
+        <h1>Administration du site</h1>
+        <p>Modifiez les textes et les photos du site vitrine.</p>
+        <p class="small">
+          Le token admin est defini dans la variable d'environnement <code>ADMIN_TOKEN</code>.
+        </p>
+      </header>
+
+      <section class="panel">
+        <h2>Connexion</h2>
+        <div class="row">
+          <input
+            id="tokenInput"
+            type="password"
+            placeholder="Token admin"
+            autocomplete="current-password"
+          />
+          <button id="saveTokenBtn" type="button">Enregistrer le token</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h2>Textes</h2>
+        <form id="contentForm">
+          <label>
+            Nom entreprise
+            <input id="businessName" type="text" maxlength="80" required />
+          </label>
+          <label>
+            Telephone
+            <input id="phone" type="text" maxlength="40" />
+          </label>
+          <label>
+            Email
+            <input id="email" type="email" maxlength="120" />
+          </label>
+          <label>
+            Titre principal
+            <input id="heroTitle" type="text" maxlength="90" required />
+          </label>
+          <label>
+            Sous-titre
+            <textarea id="heroSubtitle" maxlength="220" rows="2"></textarea>
+          </label>
+          <label>
+            A propos
+            <textarea id="aboutText" maxlength="1000" rows="4"></textarea>
+          </label>
+          <label>
+            Services (1 ligne = Titre|Description)
+            <textarea id="servicesText" rows="6"></textarea>
+          </label>
+          <label>
+            Message de contact
+            <textarea id="ctaText" maxlength="180" rows="2"></textarea>
+          </label>
+          <button type="submit">Enregistrer les textes</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Photos</h2>
+        <div class="row stack-mobile">
+          <input id="altInput" type="text" maxlength="140" placeholder="Texte alternatif (optionnel)" />
+          <input id="photoInput" type="file" accept="image/*" multiple />
+          <button id="uploadBtn" type="button">Uploader</button>
+        </div>
+        <div id="galleryAdmin" class="gallery-admin"></div>
+      </section>
+
+      <p id="status" class="status"></p>
+      <p><a href="/" target="_blank" rel="noopener">Voir le site public</a></p>
+    </main>
+
+    <script src="/admin.js" defer></script>
+  </body>
+</html>
