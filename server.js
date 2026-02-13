@@ -363,7 +363,7 @@ app.post("/api/upload", requireAdminApi, upload.single("photo"), async (req, res
     }
 
     const content = await loadContent();
-    const alt = cleanText(req.body.alt || req.file.originalname, 140) || "Photo réalisation";
+    const alt = cleanText(req.body.alt, 140) || "Photo réalisation";
     const entry = { url: `/uploads/${req.file.filename}`, alt };
 
     content.gallery.push(entry);

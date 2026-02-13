@@ -77,10 +77,7 @@ function renderGallery(gallery) {
     image.src = item.url;
     image.alt = item.alt;
     image.loading = "lazy";
-    const caption = document.createElement("figcaption");
-    caption.textContent = item.alt;
     figure.appendChild(image);
-    figure.appendChild(caption);
     container.appendChild(figure);
   });
 }

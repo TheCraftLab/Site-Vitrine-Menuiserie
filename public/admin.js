@@ -75,7 +75,6 @@ function renderGallery(content) {
   }
 
   content.gallery.forEach((item) => {
-    const filename = item.url.split("/").pop();
     const card = document.createElement("article");
     card.className = "item";
 
@@ -90,17 +89,13 @@ function renderGallery(content) {
     const strong = document.createElement("strong");
     strong.textContent = item.alt;
 
-    const small = document.createElement("small");
-    small.textContent = filename;
-
     const button = document.createElement("button");
     button.type = "button";
     button.className = "delete-btn";
-    button.dataset.file = filename;
+    button.dataset.file = item.url.split("/").pop();
     button.textContent = "Supprimer";
 
     meta.appendChild(strong);
-    meta.appendChild(small);
     meta.appendChild(button);
     card.appendChild(image);
     card.appendChild(meta);
@@ -196,7 +191,7 @@ uploadBtn.addEventListener("click", async () => {
     for (const file of files) {
       const formData = new FormData();
       formData.append("photo", file);
-      formData.append("alt", altBase || file.name);
+      formData.append("alt", altBase);
       await apiFetch("/api/upload", {
         method: "POST",
         body: formData
