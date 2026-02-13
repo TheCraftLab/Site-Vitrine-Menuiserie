@@ -64,6 +64,8 @@ function normalizeAdminPath(rawPath) {
 }
 
 const ADMIN_PATH = normalizeAdminPath(process.env.ADMIN_PATH || "atelier-admin");
+const ADMIN_PATH_EXACT = new RegExp(`^${ADMIN_PATH}$`);
+const ADMIN_PATH_SLASH_EXACT = new RegExp(`^${ADMIN_PATH}/$`);
 
 app.use(express.json({ limit: "1mb" }));
 
@@ -337,11 +339,11 @@ app.get(["/admin.html", "/admin.js", "/admin.css"], (_req, res) => {
   return res.status(404).send("Not found");
 });
 
-app.get(ADMIN_PATH, requireAdminPage, (_req, res) => {
+app.get(ADMIN_PATH_EXACT, requireAdminPage, (_req, res) => {
   return res.redirect(302, `${ADMIN_PATH}/`);
 });
 
-app.get(`${ADMIN_PATH}/`, requireAdminPage, (_req, res) => {
+app.get(ADMIN_PATH_SLASH_EXACT, requireAdminPage, (_req, res) => {
   return res.sendFile(path.join(__dirname, "public", "admin.html"));
 });
 
