@@ -7,7 +7,7 @@ services:
     environment:
       ADMIN_PATH: ${ADMIN_PATH:-atelier-admin}
       ADMIN_USERNAME: ${ADMIN_USERNAME:-flake}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Acfn3puf$lcMdvc}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-adminpwd}
       TZ: ${TZ:-Europe/Paris}
     volumes:
       - vitrine_data:/data
