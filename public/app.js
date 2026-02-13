@@ -7,6 +7,53 @@ async function loadContent() {
 }
 
 let revealObserver = null;
+const lightbox = document.getElementById("lightbox");
+const lightboxImage = document.getElementById("lightboxImage");
+const lightboxClose = document.getElementById("lightboxClose");
+
+function openLightbox(src, alt) {
+  if (!lightbox || !lightboxImage) return;
+  lightboxImage.src = src;
+  lightboxImage.alt = alt || "Photo";
+  lightbox.hidden = false;
+  lightbox.setAttribute("aria-hidden", "false");
+  requestAnimationFrame(() => lightbox.classList.add("is-open"));
+  document.body.classList.add("no-scroll");
+}
+
+function closeLightbox() {
+  if (!lightbox || !lightboxImage) return;
+  lightbox.classList.remove("is-open");
+  lightbox.setAttribute("aria-hidden", "true");
+  lightbox.hidden = true;
+  lightboxImage.src = "";
+  document.body.classList.remove("no-scroll");
+}
+
+function setupLightbox() {
+  const gallery = document.getElementById("galleryList");
+  if (!gallery || !lightbox || !lightboxClose) return;
+
+  gallery.addEventListener("click", (event) => {
+    const target = event.target;
+    if (!(target instanceof HTMLImageElement)) return;
+    openLightbox(target.src, target.alt);
+  });
+
+  lightboxClose.addEventListener("click", () => {
+    closeLightbox();
+  });
+
+  lightbox.addEventListener("click", (event) => {
+    if (event.target === lightbox) closeLightbox();
+  });
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && !lightbox.hidden) {
+      closeLightbox();
+    }
+  });
+}
 
 function ensureRevealObserver() {
   if (revealObserver || !("IntersectionObserver" in window)) return;
@@ -147,6 +194,7 @@ function renderContent(content) {
 
 async function init() {
   try {
+    setupLightbox();
     registerReveals(document);
     const content = await loadContent();
     renderContent(content);
