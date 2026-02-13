@@ -5,7 +5,9 @@ services:
     ports:
       - "8080:3000"
     environment:
-      ADMIN_TOKEN: ${ADMIN_TOKEN:-change-me-please}
+      ADMIN_PATH: ${ADMIN_PATH:-atelier-admin}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me}
       TZ: ${TZ:-Europe/Paris}
     volumes:
       - vitrine_data:/data

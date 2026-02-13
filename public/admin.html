@@ -4,30 +4,15 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin - Site vitrine</title>
-    <link rel="stylesheet" href="/admin.css" />
+    <link rel="stylesheet" href="./admin.css" />
   </head>
   <body>
     <main class="wrapper">
       <header class="panel">
         <h1>Administration du site</h1>
         <p>Modifiez les textes et les photos du site vitrine.</p>
-        <p class="small">
-          Le token admin est defini dans la variable d'environnement <code>ADMIN_TOKEN</code>.
-        </p>
+        <p class="small">Acces protege par identifiant/mot de passe.</p>
       </header>
-
-      <section class="panel">
-        <h2>Connexion</h2>
-        <div class="row">
-          <input
-            id="tokenInput"
-            type="password"
-            placeholder="Token admin"
-            autocomplete="current-password"
-          />
-          <button id="saveTokenBtn" type="button">Enregistrer le token</button>
-        </div>
-      </section>
 
       <section class="panel">
         <h2>Textes</h2>
@@ -82,6 +67,6 @@
       <p><a href="/" target="_blank" rel="noopener">Voir le site public</a></p>
     </main>
 
-    <script src="/admin.js" defer></script>
+    <script src="./admin.js" defer></script>
   </body>
 </html>

@@ -10,7 +10,8 @@ const PORT = process.env.PORT || 3000;
 const DATA_DIR = process.env.DATA_DIR || path.join(__dirname, "data");
 const CONTENT_FILE = path.join(DATA_DIR, "content.json");
 const UPLOAD_DIR = path.join(DATA_DIR, "uploads");
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN || "change-me";
+const ADMIN_USERNAME = process.env.ADMIN_USERNAME || "admin";
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || "change-me";
 
 const DEFAULT_CONTENT = {
   meta: {
@@ -47,6 +48,22 @@ const DEFAULT_CONTENT = {
 };
 
 const IMAGE_EXTENSIONS = new Set([".jpg", ".jpeg", ".png", ".webp", ".gif", ".avif"]);
+const ADMIN_REALM = 'Basic realm="Site Admin", charset="UTF-8"';
+
+function normalizeAdminPath(rawPath) {
+  const fallback = "atelier-admin";
+  const reserved = new Set(["api", "uploads"]);
+  if (typeof rawPath !== "string") return `/${fallback}`;
+  const cleaned = rawPath
+    .trim()
+    .replace(/^\/+|\/+$/g, "")
+    .replace(/[^a-zA-Z0-9_-]/g, "");
+  const safeValue = cleaned || fallback;
+  if (reserved.has(safeValue.toLowerCase())) return `/${fallback}`;
+  return `/${safeValue}`;
+}
+
+const ADMIN_PATH = normalizeAdminPath(process.env.ADMIN_PATH || "atelier-admin");
 
 app.use(express.json({ limit: "1mb" }));
 
@@ -135,9 +152,54 @@ async function saveContent(content) {
   return normalized;
 }
 
-function requireAdmin(req, res, next) {
-  const token = req.get("x-admin-token");
-  if (!token || token !== ADMIN_TOKEN) {
+function timingSafeStringCompare(left, right) {
+  const leftBuffer = Buffer.from(String(left));
+  const rightBuffer = Buffer.from(String(right));
+  if (leftBuffer.length !== rightBuffer.length) return false;
+  return crypto.timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function parseBasicAuthorization(header) {
+  if (!header || !header.startsWith("Basic ")) return null;
+  const encoded = header.slice(6).trim();
+  if (!encoded) return null;
+
+  let decoded = "";
+  try {
+    decoded = Buffer.from(encoded, "base64").toString("utf8");
+  } catch {
+    return null;
+  }
+
+  const separatorIndex = decoded.indexOf(":");
+  if (separatorIndex <= -1) return null;
+  return {
+    username: decoded.slice(0, separatorIndex),
+    password: decoded.slice(separatorIndex + 1)
+  };
+}
+
+function isAuthorized(req) {
+  const authHeader = req.get("authorization");
+  const credentials = parseBasicAuthorization(authHeader);
+  if (!credentials) return false;
+  return (
+    timingSafeStringCompare(credentials.username, ADMIN_USERNAME) &&
+    timingSafeStringCompare(credentials.password, ADMIN_PASSWORD)
+  );
+}
+
+function requireAdminPage(req, res, next) {
+  if (!isAuthorized(req)) {
+    res.set("WWW-Authenticate", ADMIN_REALM);
+    return res.status(401).send("Authentication required");
+  }
+  return next();
+}
+
+function requireAdminApi(req, res, next) {
+  if (!isAuthorized(req)) {
+    res.set("WWW-Authenticate", ADMIN_REALM);
     return res.status(401).json({ error: "Unauthorized" });
   }
   return next();
@@ -182,7 +244,7 @@ app.get("/api/content", async (_req, res) => {
   }
 });
 
-app.put("/api/content", requireAdmin, async (req, res) => {
+app.put("/api/content", requireAdminApi, async (req, res) => {
   try {
     const current = await loadContent();
     const incoming = req.body || {};
@@ -216,7 +278,7 @@ app.put("/api/content", requireAdmin, async (req, res) => {
   }
 });
 
-app.post("/api/upload", requireAdmin, upload.single("photo"), async (req, res) => {
+app.post("/api/upload", requireAdminApi, upload.single("photo"), async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ error: "Photo is required" });
@@ -238,7 +300,7 @@ app.post("/api/upload", requireAdmin, upload.single("photo"), async (req, res) =
   }
 });
 
-app.delete("/api/upload/:filename", requireAdmin, async (req, res) => {
+app.delete("/api/upload/:filename", requireAdminApi, async (req, res) => {
   try {
     const filename = sanitizeFilename(req.params.filename || "");
     if (!filename) {
@@ -271,6 +333,26 @@ app.use((error, _req, res, next) => {
   return next(error);
 });
 
+app.get(["/admin.html", "/admin.js", "/admin.css"], (_req, res) => {
+  return res.status(404).send("Not found");
+});
+
+app.get(ADMIN_PATH, requireAdminPage, (_req, res) => {
+  return res.redirect(302, `${ADMIN_PATH}/`);
+});
+
+app.get(`${ADMIN_PATH}/`, requireAdminPage, (_req, res) => {
+  return res.sendFile(path.join(__dirname, "public", "admin.html"));
+});
+
+app.get(`${ADMIN_PATH}/admin.css`, requireAdminPage, (_req, res) => {
+  return res.sendFile(path.join(__dirname, "public", "admin.css"));
+});
+
+app.get(`${ADMIN_PATH}/admin.js`, requireAdminPage, (_req, res) => {
+  return res.sendFile(path.join(__dirname, "public", "admin.js"));
+});
+
 app.use("/uploads", express.static(UPLOAD_DIR));
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -286,6 +368,7 @@ async function start() {
     await ensureStorage();
     app.listen(PORT, () => {
       console.log(`Server running on port ${PORT}`);
+      console.log(`Admin URL path: ${ADMIN_PATH}/`);
     });
   } catch (error) {
     console.error("Startup failed:", error);

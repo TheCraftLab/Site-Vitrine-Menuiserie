@@ -1,5 +1,3 @@
-const tokenInput = document.getElementById("tokenInput");
-const saveTokenBtn = document.getElementById("saveTokenBtn");
 const contentForm = document.getElementById("contentForm");
 const uploadBtn = document.getElementById("uploadBtn");
 const photoInput = document.getElementById("photoInput");
@@ -20,23 +18,15 @@ const fields = {
 
 let contentState = null;
 
-function getToken() {
-  return localStorage.getItem("adminToken") || "";
-}
-
 function setStatus(message, isError = false) {
   statusEl.textContent = message;
   statusEl.style.color = isError ? "#b02020" : "#4f5b66";
 }
 
 async function apiFetch(url, options = {}) {
-  const headers = { ...(options.headers || {}) };
-  const token = getToken();
-  if (token) headers["x-admin-token"] = token;
-
-  const response = await fetch(url, { ...options, headers });
+  const response = await fetch(url, options);
   if (response.status === 401) {
-    throw new Error("Token invalide ou manquant.");
+    throw new Error("Acces refuse. Rechargez la page admin et reconnectez-vous.");
   }
   if (!response.ok) {
     const body = await response.json().catch(() => null);
@@ -125,11 +115,6 @@ async function loadContent() {
   renderGallery(contentState);
 }
 
-saveTokenBtn.addEventListener("click", () => {
-  localStorage.setItem("adminToken", tokenInput.value.trim());
-  setStatus("Token enregistre localement.");
-});
-
 contentForm.addEventListener("submit", async (event) => {
   event.preventDefault();
   if (!contentState) return;
@@ -210,7 +195,6 @@ galleryAdmin.addEventListener("click", async (event) => {
 });
 
 async function init() {
-  tokenInput.value = getToken();
   try {
     await loadContent();
     setStatus("Contenu charge.");
