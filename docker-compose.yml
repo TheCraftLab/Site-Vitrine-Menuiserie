@@ -6,8 +6,8 @@ services:
       - "${PUBLIC_PORT:-8081}:3000"
     environment:
       ADMIN_PATH: ${ADMIN_PATH:-atelier-admin}
-      ADMIN_USERNAME: ${ADMIN_USERNAME:-admin}
-      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-change-me}
+      ADMIN_USERNAME: ${ADMIN_USERNAME:-flake}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-Acfn3puf$lcMdvc}
       TZ: ${TZ:-Europe/Paris}
     volumes:
       - vitrine_data:/data

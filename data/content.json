@@ -5,10 +5,33 @@
     "email": "contact@menuiserie-dupont.fr"
   },
   "hero": {
+    "eyebrow": "Agencement, renovation, sur mesure",
     "title": "Votre menuisier sur mesure",
-    "subtitle": "Fenêtres, portes, escaliers et agencements intérieurs avec finitions soignées."
+    "subtitle": "Fenêtres, portes, parquets et agencements intérieurs avec finitions soignées.",
+    "primaryCta": "Demander un devis",
+    "secondaryCta": "Voir les realisations",
+    "panelTitle": "Finition nette. Delais tenus.",
+    "highlights": [
+      "Intervention locale rapide",
+      "Materiaux bois, PVC, aluminium",
+      "Pose et details soignes"
+    ]
   },
-  "about": "Nous accompagnons les particuliers et professionnels sur des projets de menuiserie bois, PVC et aluminium. Conseils, prise de cotes, fabrication et pose.",
+  "about": "J'accompagne les particuliers et professionnels sur des projets de menuiserie bois, PVC et aluminium. Conseils, prise de cotes et pose.",
+  "aboutSection": {
+    "kicker": "L'atelier",
+    "title": "Un style precis, une execution propre",
+    "cards": [
+      {
+        "title": "Etude technique",
+        "description": "Prise de cotes, conseil materiaux et contraintes du bati."
+      },
+      {
+        "title": "Fabrication adaptee",
+        "description": "Details ajustes a votre interieur et a votre usage quotidien."
+      }
+    ]
+  },
   "services": [
     {
       "title": "Fabrication sur mesure",

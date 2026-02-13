@@ -85,11 +85,48 @@ function renderGallery(gallery) {
   });
 }
 
+function renderHeroHighlights(highlights) {
+  const list = document.getElementById("heroHighlightsList");
+  list.innerHTML = "";
+
+  (highlights || []).forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+}
+
+function renderAboutCards(cards) {
+  const container = document.getElementById("aboutCardsList");
+  container.innerHTML = "";
+
+  (cards || []).forEach((card, index) => {
+    const article = document.createElement("article");
+    article.className = "reveal is-stagger";
+    article.style.setProperty("--i", String(index));
+
+    const title = document.createElement("h3");
+    title.textContent = card.title;
+    const description = document.createElement("p");
+    description.textContent = card.description;
+
+    article.appendChild(title);
+    article.appendChild(description);
+    container.appendChild(article);
+  });
+}
+
 function renderContent(content) {
+  document.getElementById("heroEyebrow").textContent = content.hero.eyebrow;
   document.getElementById("businessName").textContent = content.meta.businessName;
   document.getElementById("footerBusinessName").textContent = content.meta.businessName;
   document.getElementById("heroTitle").textContent = content.hero.title;
   document.getElementById("heroSubtitle").textContent = content.hero.subtitle;
+  document.getElementById("heroPrimaryCta").textContent = content.hero.primaryCta;
+  document.getElementById("heroSecondaryCta").textContent = content.hero.secondaryCta;
+  document.getElementById("heroPanelTitle").textContent = content.hero.panelTitle;
+  document.getElementById("aboutKicker").textContent = content.aboutSection.kicker;
+  document.getElementById("aboutTitle").textContent = content.aboutSection.title;
   document.getElementById("aboutText").textContent = content.about;
   document.getElementById("ctaText").textContent = content.cta;
 
@@ -104,6 +141,8 @@ function renderContent(content) {
   emailLink.href = email ? `mailto:${email}` : "#";
   emailLink.textContent = email || "Email a renseigner";
 
+  renderHeroHighlights(content.hero.highlights || []);
+  renderAboutCards(content.aboutSection.cards || []);
   renderServices(content.services || []);
   renderGallery(content.gallery || []);
   registerReveals(document);

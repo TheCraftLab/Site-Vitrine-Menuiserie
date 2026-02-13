@@ -3,7 +3,7 @@
 Ce projet fournit:
 
 - une page vitrine one-page (`/`)
-- une page admin cachee pour modifier textes et photos
+- une page admin cachee pour modifier textes (hero, a propos, services, contact) et photos
 - une stack Docker compatible Portainer pour Raspberry Pi
 
 ## 1) Lancer en local

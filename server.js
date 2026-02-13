@@ -20,12 +20,34 @@ const DEFAULT_CONTENT = {
     email: "contact@menuiserie-dupont.fr"
   },
   hero: {
+    eyebrow: "Agencement, renovation, sur mesure",
     title: "Votre menuisier sur mesure",
-    subtitle:
-      "Fenêtres, portes, escaliers et agencements intérieurs avec finitions soignées."
+    subtitle: "Fenêtres, portes, parquets et agencements intérieurs avec finitions soignées.",
+    primaryCta: "Demander un devis",
+    secondaryCta: "Voir les realisations",
+    panelTitle: "Finition nette. Delais tenus.",
+    highlights: [
+      "Intervention locale rapide",
+      "Materiaux bois, PVC, aluminium",
+      "Pose et details soignes"
+    ]
   },
   about:
-    "Nous accompagnons les particuliers et professionnels sur des projets de menuiserie bois, PVC et aluminium. Conseils, prise de cotes, fabrication et pose.",
+    "J'accompagne les particuliers et professionnels sur des projets de menuiserie bois, PVC et aluminium. Conseils, prise de cotes et pose.",
+  aboutSection: {
+    kicker: "L'atelier",
+    title: "Un style precis, une execution propre",
+    cards: [
+      {
+        title: "Etude technique",
+        description: "Prise de cotes, conseil materiaux et contraintes du bati."
+      },
+      {
+        title: "Fabrication adaptee",
+        description: "Details ajustes a votre interieur et a votre usage quotidien."
+      }
+    ]
+  },
   services: [
     {
       title: "Fabrication sur mesure",
@@ -79,6 +101,19 @@ function mergeText(value, fallback, maxLength = 1000) {
   return cleanText(value, maxLength);
 }
 
+function cleanTextArray(value, maxItems = 6, maxLength = 100) {
+  if (!Array.isArray(value)) return [];
+  return value
+    .map((entry) => cleanText(entry, maxLength))
+    .filter(Boolean)
+    .slice(0, maxItems);
+}
+
+function mergeTextArray(value, fallback, maxItems = 6, maxLength = 100) {
+  const cleaned = cleanTextArray(value, maxItems, maxLength);
+  return cleaned.length ? cleaned : fallback;
+}
+
 function cleanService(service) {
   if (!service || typeof service !== "object") return null;
   const title = cleanText(service.title, 80);
@@ -93,6 +128,14 @@ function cleanGalleryItem(item) {
   if (!url.startsWith("/uploads/")) return null;
   const alt = cleanText(item.alt, 140);
   return { url, alt: alt || "Photo réalisation" };
+}
+
+function cleanAboutCard(card) {
+  if (!card || typeof card !== "object") return null;
+  const title = cleanText(card.title, 90);
+  const description = cleanText(card.description, 220);
+  if (!title && !description) return null;
+  return { title, description };
 }
 
 function sanitizeFilename(name) {
@@ -127,10 +170,22 @@ function normalizeContent(content) {
       email: mergeText(base.meta?.email, DEFAULT_CONTENT.meta.email, 120)
     },
     hero: {
+      eyebrow: mergeText(base.hero?.eyebrow, DEFAULT_CONTENT.hero.eyebrow, 80),
       title: mergeText(base.hero?.title, DEFAULT_CONTENT.hero.title, 90),
-      subtitle: mergeText(base.hero?.subtitle, DEFAULT_CONTENT.hero.subtitle, 220)
+      subtitle: mergeText(base.hero?.subtitle, DEFAULT_CONTENT.hero.subtitle, 220),
+      primaryCta: mergeText(base.hero?.primaryCta, DEFAULT_CONTENT.hero.primaryCta, 50),
+      secondaryCta: mergeText(base.hero?.secondaryCta, DEFAULT_CONTENT.hero.secondaryCta, 50),
+      panelTitle: mergeText(base.hero?.panelTitle, DEFAULT_CONTENT.hero.panelTitle, 90),
+      highlights: mergeTextArray(base.hero?.highlights, DEFAULT_CONTENT.hero.highlights, 6, 90)
     },
     about: mergeText(base.about, DEFAULT_CONTENT.about, 1000),
+    aboutSection: {
+      kicker: mergeText(base.aboutSection?.kicker, DEFAULT_CONTENT.aboutSection.kicker, 60),
+      title: mergeText(base.aboutSection?.title, DEFAULT_CONTENT.aboutSection.title, 110),
+      cards: Array.isArray(base.aboutSection?.cards)
+        ? base.aboutSection.cards.map(cleanAboutCard).filter(Boolean).slice(0, 4)
+        : DEFAULT_CONTENT.aboutSection.cards
+    },
     services: Array.isArray(base.services)
       ? base.services.map(cleanService).filter(Boolean).slice(0, 8)
       : DEFAULT_CONTENT.services,
@@ -142,6 +197,9 @@ function normalizeContent(content) {
 
   if (!normalized.services.length) {
     normalized.services = DEFAULT_CONTENT.services;
+  }
+  if (!normalized.aboutSection.cards.length) {
+    normalized.aboutSection.cards = DEFAULT_CONTENT.aboutSection.cards;
   }
   return normalized;
 }
@@ -259,10 +317,28 @@ app.put("/api/content", requireAdminApi, async (req, res) => {
         email: mergeText(incoming.meta?.email, current.meta.email, 120)
       },
       hero: {
+        eyebrow: mergeText(incoming.hero?.eyebrow, current.hero.eyebrow, 80),
         title: mergeText(incoming.hero?.title, current.hero.title, 90),
-        subtitle: mergeText(incoming.hero?.subtitle, current.hero.subtitle, 220)
+        subtitle: mergeText(incoming.hero?.subtitle, current.hero.subtitle, 220),
+        primaryCta: mergeText(incoming.hero?.primaryCta, current.hero.primaryCta, 50),
+        secondaryCta: mergeText(incoming.hero?.secondaryCta, current.hero.secondaryCta, 50),
+        panelTitle: mergeText(incoming.hero?.panelTitle, current.hero.panelTitle, 90),
+        highlights: Array.isArray(incoming.hero?.highlights)
+          ? mergeTextArray(incoming.hero.highlights, current.hero.highlights, 6, 90)
+          : current.hero.highlights
       },
       about: mergeText(incoming.about, current.about, 1000),
+      aboutSection: {
+        kicker: mergeText(
+          incoming.aboutSection?.kicker,
+          current.aboutSection.kicker,
+          60
+        ),
+        title: mergeText(incoming.aboutSection?.title, current.aboutSection.title, 110),
+        cards: Array.isArray(incoming.aboutSection?.cards)
+          ? incoming.aboutSection.cards.map(cleanAboutCard).filter(Boolean).slice(0, 4)
+          : current.aboutSection.cards
+      },
       cta: mergeText(incoming.cta, current.cta, 180),
       services: Array.isArray(incoming.services)
         ? incoming.services.map(cleanService).filter(Boolean).slice(0, 8)

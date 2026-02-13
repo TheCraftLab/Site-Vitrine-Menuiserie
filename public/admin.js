@@ -9,9 +9,17 @@ const fields = {
   businessName: document.getElementById("businessName"),
   phone: document.getElementById("phone"),
   email: document.getElementById("email"),
+  heroEyebrow: document.getElementById("heroEyebrow"),
   heroTitle: document.getElementById("heroTitle"),
   heroSubtitle: document.getElementById("heroSubtitle"),
+  heroPrimaryCta: document.getElementById("heroPrimaryCta"),
+  heroSecondaryCta: document.getElementById("heroSecondaryCta"),
+  heroPanelTitle: document.getElementById("heroPanelTitle"),
+  heroHighlightsText: document.getElementById("heroHighlightsText"),
+  aboutKicker: document.getElementById("aboutKicker"),
+  aboutTitle: document.getElementById("aboutTitle"),
   aboutText: document.getElementById("aboutText"),
+  aboutCardsText: document.getElementById("aboutCardsText"),
   servicesText: document.getElementById("servicesText"),
   ctaText: document.getElementById("ctaText")
 };
@@ -39,9 +47,19 @@ function renderForm(content) {
   fields.businessName.value = content.meta.businessName || "";
   fields.phone.value = content.meta.phone || "";
   fields.email.value = content.meta.email || "";
+  fields.heroEyebrow.value = content.hero.eyebrow || "";
   fields.heroTitle.value = content.hero.title || "";
   fields.heroSubtitle.value = content.hero.subtitle || "";
+  fields.heroPrimaryCta.value = content.hero.primaryCta || "";
+  fields.heroSecondaryCta.value = content.hero.secondaryCta || "";
+  fields.heroPanelTitle.value = content.hero.panelTitle || "";
+  fields.heroHighlightsText.value = (content.hero.highlights || []).join("\n");
+  fields.aboutKicker.value = content.aboutSection.kicker || "";
+  fields.aboutTitle.value = content.aboutSection.title || "";
   fields.aboutText.value = content.about || "";
+  fields.aboutCardsText.value = (content.aboutSection.cards || [])
+    .map((card) => `${card.title}|${card.description}`)
+    .join("\n");
   fields.ctaText.value = content.cta || "";
 
   fields.servicesText.value = (content.services || [])
@@ -90,7 +108,7 @@ function renderGallery(content) {
   });
 }
 
-function parseServices(value) {
+function parseLinePairs(value) {
   return value
     .split("\n")
     .map((line) => line.trim())
@@ -103,6 +121,14 @@ function parseServices(value) {
       };
     })
     .filter((item) => item.title || item.description);
+}
+
+function parseSimpleLines(value, maxItems = 6) {
+  return value
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean)
+    .slice(0, maxItems);
 }
 
 async function loadContent() {
@@ -126,12 +152,22 @@ contentForm.addEventListener("submit", async (event) => {
       email: fields.email.value
     },
     hero: {
+      eyebrow: fields.heroEyebrow.value,
       title: fields.heroTitle.value,
-      subtitle: fields.heroSubtitle.value
+      subtitle: fields.heroSubtitle.value,
+      primaryCta: fields.heroPrimaryCta.value,
+      secondaryCta: fields.heroSecondaryCta.value,
+      panelTitle: fields.heroPanelTitle.value,
+      highlights: parseSimpleLines(fields.heroHighlightsText.value, 6)
+    },
+    aboutSection: {
+      kicker: fields.aboutKicker.value,
+      title: fields.aboutTitle.value,
+      cards: parseLinePairs(fields.aboutCardsText.value).slice(0, 4)
     },
     about: fields.aboutText.value,
     cta: fields.ctaText.value,
-    services: parseServices(fields.servicesText.value)
+    services: parseLinePairs(fields.servicesText.value)
   };
 
   try {
