@@ -456,11 +456,17 @@ h2 {
   justify-content: center;
   background: rgba(7, 9, 12, 0.88);
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.2s ease;
 }
 
 .lightbox.is-open {
   opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox[hidden] {
+  display: none !important;
 }
 
 .lightbox img {
