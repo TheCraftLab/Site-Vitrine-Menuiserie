@@ -16,6 +16,7 @@ function openLightbox(src, alt) {
   lightboxImage.src = src;
   lightboxImage.alt = alt || "Photo";
   lightbox.hidden = false;
+  lightbox.removeAttribute("hidden");
   lightbox.setAttribute("aria-hidden", "false");
   requestAnimationFrame(() => lightbox.classList.add("is-open"));
   document.body.classList.add("no-scroll");
@@ -26,6 +27,7 @@ function closeLightbox() {
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
   lightbox.hidden = true;
+  lightbox.setAttribute("hidden", "");
   lightboxImage.src = "";
   document.body.classList.remove("no-scroll");
 }
@@ -36,8 +38,15 @@ function setupLightbox() {
 
   gallery.addEventListener("click", (event) => {
     const target = event.target;
-    if (!(target instanceof HTMLImageElement)) return;
-    openLightbox(target.src, target.alt);
+    if (!(target instanceof Element)) return;
+
+    const clickedImage =
+      target instanceof HTMLImageElement
+        ? target
+        : target.closest(".gallery-item")?.querySelector("img");
+
+    if (!clickedImage) return;
+    openLightbox(clickedImage.currentSrc || clickedImage.src, clickedImage.alt);
   });
 
   lightboxClose.addEventListener("click", () => {
