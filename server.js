@@ -19,6 +19,45 @@ const DEFAULT_CONTENT = {
     phone: "06 00 00 00 00",
     email: "contact@menuiserie-dupont.fr"
   },
+  labels: {
+    navAbout: "Atelier",
+    navServices: "Prestations",
+    navGallery: "Realisations",
+    navContact: "Contact",
+    topbarCta: "Demander un devis",
+    backToTop: "Retour en haut",
+    mobilePhone: "Appeler",
+    mobileEmail: "Email"
+  },
+  visibility: {
+    topbar: true,
+    nav: true,
+    topbarCta: true,
+    hero: true,
+    heroEyebrow: true,
+    heroSubtitle: true,
+    heroPrimaryCta: true,
+    heroSecondaryCta: true,
+    heroHighlights: true,
+    heroPanel: true,
+    heroPanelKicker: true,
+    heroPanelStats: true,
+    trustBand: true,
+    about: true,
+    aboutText: true,
+    aboutCards: true,
+    services: true,
+    process: true,
+    gallery: true,
+    contact: true,
+    contactPhone: true,
+    contactEmail: true,
+    footer: true,
+    backToTop: true,
+    mobileCta: true,
+    mobilePhone: true,
+    mobileEmail: true
+  },
   hero: {
     eyebrow: "Menuiserie artisanale, renovation et sur mesure",
     title: "Des menuiseries durables, posees avec precision",
@@ -26,8 +65,27 @@ const DEFAULT_CONTENT = {
       "Fenetres, portes, escaliers et agencements interieurs avec une execution propre du premier rendez-vous a la pose finale.",
     primaryCta: "Demander un devis",
     secondaryCta: "Voir les realisations",
+    panelKicker: "Projet neuf ou renovation",
     panelTitle: "Un interlocuteur unique pour un chantier maitrise",
-    highlights: ["Devis detaille sous 48h", "Bois, PVC et aluminium", "Pose soignee et delais annonces"]
+    highlights: ["Devis detaille sous 48h", "Bois, PVC et aluminium", "Pose soignee et delais annonces"],
+    stats: [
+      { value: "+250", label: "chantiers livres" },
+      { value: "4.8/5", label: "avis clients" },
+      { value: "10 ans", label: "d'experience" }
+    ]
+  },
+  trustBand: {
+    items: [
+      { title: "Reponse rapide", text: "Retour sous 24h pour qualifier votre besoin." },
+      {
+        title: "Intervention locale",
+        text: "Visites techniques et conseils adaptes a votre chantier."
+      },
+      {
+        title: "Garantie",
+        text: "Execution propre, materiaux selectionnes et suivi apres pose."
+      }
+    ]
   },
   about:
     "Nous accompagnons particuliers et professionnels sur des projets de menuiserie interieure et exterieure. Chaque chantier est prepare avec prise de cotes, conseils techniques, choix des materiaux et suivi jusqu'aux finitions.",
@@ -51,6 +109,10 @@ const DEFAULT_CONTENT = {
       }
     ]
   },
+  servicesSection: {
+    kicker: "Prestations",
+    title: "Des solutions adaptees a chaque projet"
+  },
   services: [
     {
       title: "Fenetres et ouvertures",
@@ -72,6 +134,43 @@ const DEFAULT_CONTENT = {
         "Placards, bibliotheques, dressing et rangements optimises pour vos espaces."
     }
   ],
+  processSection: {
+    kicker: "Methode",
+    title: "Un process clair en 4 etapes",
+    steps: [
+      {
+        number: "01",
+        title: "Echange initial",
+        description:
+          "Vous decrivez votre besoin, vos contraintes et le niveau de finition attendu."
+      },
+      {
+        number: "02",
+        title: "Visite et cotes",
+        description: "Nous validons les dimensions, la technique et les options de materiaux."
+      },
+      {
+        number: "03",
+        title: "Fabrication",
+        description:
+          "Chaque element est prepare selon votre interieur et votre usage quotidien."
+      },
+      {
+        number: "04",
+        title: "Pose et controle",
+        description: "Installation, reglages et controle final pour un rendu net et durable."
+      }
+    ]
+  },
+  gallerySection: {
+    kicker: "Portfolio",
+    title: "Realisations recentes"
+  },
+  contactSection: {
+    kicker: "Votre projet",
+    title: "Parlons de vos travaux de menuiserie",
+    message: "Parlez-nous de votre projet et recevez un devis clair et personnalise."
+  },
   cta: "Parlez-nous de votre projet et recevez un devis clair et personnalise.",
   gallery: []
 };
@@ -116,11 +215,6 @@ function cleanTextArray(value, maxItems = 6, maxLength = 100) {
     .slice(0, maxItems);
 }
 
-function mergeTextArray(value, fallback, maxItems = 6, maxLength = 100) {
-  const cleaned = cleanTextArray(value, maxItems, maxLength);
-  return cleaned.length ? cleaned : fallback;
-}
-
 function cleanService(service) {
   if (!service || typeof service !== "object") return null;
   const title = cleanText(service.title, 80);
@@ -143,6 +237,36 @@ function cleanAboutCard(card) {
   const description = cleanText(card.description, 220);
   if (!title && !description) return null;
   return { title, description };
+}
+
+function cleanBoolean(value, fallback = false) {
+  if (typeof value === "boolean") return value;
+  return fallback;
+}
+
+function cleanHeroStat(item) {
+  if (!item || typeof item !== "object") return null;
+  const value = cleanText(item.value, 32);
+  const label = cleanText(item.label, 80);
+  if (!value && !label) return null;
+  return { value, label };
+}
+
+function cleanTrustItem(item) {
+  if (!item || typeof item !== "object") return null;
+  const title = cleanText(item.title, 70);
+  const text = cleanText(item.text, 180);
+  if (!title && !text) return null;
+  return { title, text };
+}
+
+function cleanProcessStep(step) {
+  if (!step || typeof step !== "object") return null;
+  const number = cleanText(step.number, 16);
+  const title = cleanText(step.title, 80);
+  const description = cleanText(step.description, 220);
+  if (!number && !title && !description) return null;
+  return { number, title, description };
 }
 
 function sanitizeFilename(name) {
@@ -170,11 +294,84 @@ async function loadContent() {
 
 function normalizeContent(content) {
   const base = { ...DEFAULT_CONTENT, ...(content || {}) };
+  const legacyContactMessage = mergeText(base.cta, DEFAULT_CONTENT.contactSection.message, 180);
+  const contactMessage = mergeText(
+    base.contactSection?.message,
+    legacyContactMessage,
+    180
+  );
+
   const normalized = {
     meta: {
       businessName: mergeText(base.meta?.businessName, DEFAULT_CONTENT.meta.businessName, 80),
       phone: mergeText(base.meta?.phone, DEFAULT_CONTENT.meta.phone, 40),
       email: mergeText(base.meta?.email, DEFAULT_CONTENT.meta.email, 120)
+    },
+    labels: {
+      navAbout: mergeText(base.labels?.navAbout, DEFAULT_CONTENT.labels.navAbout, 26),
+      navServices: mergeText(base.labels?.navServices, DEFAULT_CONTENT.labels.navServices, 26),
+      navGallery: mergeText(base.labels?.navGallery, DEFAULT_CONTENT.labels.navGallery, 26),
+      navContact: mergeText(base.labels?.navContact, DEFAULT_CONTENT.labels.navContact, 26),
+      topbarCta: mergeText(base.labels?.topbarCta, DEFAULT_CONTENT.labels.topbarCta, 50),
+      backToTop: mergeText(base.labels?.backToTop, DEFAULT_CONTENT.labels.backToTop, 50),
+      mobilePhone: mergeText(base.labels?.mobilePhone, DEFAULT_CONTENT.labels.mobilePhone, 24),
+      mobileEmail: mergeText(base.labels?.mobileEmail, DEFAULT_CONTENT.labels.mobileEmail, 24)
+    },
+    visibility: {
+      topbar: cleanBoolean(base.visibility?.topbar, DEFAULT_CONTENT.visibility.topbar),
+      nav: cleanBoolean(base.visibility?.nav, DEFAULT_CONTENT.visibility.nav),
+      topbarCta: cleanBoolean(base.visibility?.topbarCta, DEFAULT_CONTENT.visibility.topbarCta),
+      hero: cleanBoolean(base.visibility?.hero, DEFAULT_CONTENT.visibility.hero),
+      heroEyebrow: cleanBoolean(base.visibility?.heroEyebrow, DEFAULT_CONTENT.visibility.heroEyebrow),
+      heroSubtitle: cleanBoolean(base.visibility?.heroSubtitle, DEFAULT_CONTENT.visibility.heroSubtitle),
+      heroPrimaryCta: cleanBoolean(
+        base.visibility?.heroPrimaryCta,
+        DEFAULT_CONTENT.visibility.heroPrimaryCta
+      ),
+      heroSecondaryCta: cleanBoolean(
+        base.visibility?.heroSecondaryCta,
+        DEFAULT_CONTENT.visibility.heroSecondaryCta
+      ),
+      heroHighlights: cleanBoolean(
+        base.visibility?.heroHighlights,
+        DEFAULT_CONTENT.visibility.heroHighlights
+      ),
+      heroPanel: cleanBoolean(base.visibility?.heroPanel, DEFAULT_CONTENT.visibility.heroPanel),
+      heroPanelKicker: cleanBoolean(
+        base.visibility?.heroPanelKicker,
+        DEFAULT_CONTENT.visibility.heroPanelKicker
+      ),
+      heroPanelStats: cleanBoolean(
+        base.visibility?.heroPanelStats,
+        DEFAULT_CONTENT.visibility.heroPanelStats
+      ),
+      trustBand: cleanBoolean(base.visibility?.trustBand, DEFAULT_CONTENT.visibility.trustBand),
+      about: cleanBoolean(base.visibility?.about, DEFAULT_CONTENT.visibility.about),
+      aboutText: cleanBoolean(base.visibility?.aboutText, DEFAULT_CONTENT.visibility.aboutText),
+      aboutCards: cleanBoolean(base.visibility?.aboutCards, DEFAULT_CONTENT.visibility.aboutCards),
+      services: cleanBoolean(base.visibility?.services, DEFAULT_CONTENT.visibility.services),
+      process: cleanBoolean(base.visibility?.process, DEFAULT_CONTENT.visibility.process),
+      gallery: cleanBoolean(base.visibility?.gallery, DEFAULT_CONTENT.visibility.gallery),
+      contact: cleanBoolean(base.visibility?.contact, DEFAULT_CONTENT.visibility.contact),
+      contactPhone: cleanBoolean(
+        base.visibility?.contactPhone,
+        DEFAULT_CONTENT.visibility.contactPhone
+      ),
+      contactEmail: cleanBoolean(
+        base.visibility?.contactEmail,
+        DEFAULT_CONTENT.visibility.contactEmail
+      ),
+      footer: cleanBoolean(base.visibility?.footer, DEFAULT_CONTENT.visibility.footer),
+      backToTop: cleanBoolean(base.visibility?.backToTop, DEFAULT_CONTENT.visibility.backToTop),
+      mobileCta: cleanBoolean(base.visibility?.mobileCta, DEFAULT_CONTENT.visibility.mobileCta),
+      mobilePhone: cleanBoolean(
+        base.visibility?.mobilePhone,
+        DEFAULT_CONTENT.visibility.mobilePhone
+      ),
+      mobileEmail: cleanBoolean(
+        base.visibility?.mobileEmail,
+        DEFAULT_CONTENT.visibility.mobileEmail
+      )
     },
     hero: {
       eyebrow: mergeText(base.hero?.eyebrow, DEFAULT_CONTENT.hero.eyebrow, 80),
@@ -182,32 +379,57 @@ function normalizeContent(content) {
       subtitle: mergeText(base.hero?.subtitle, DEFAULT_CONTENT.hero.subtitle, 220),
       primaryCta: mergeText(base.hero?.primaryCta, DEFAULT_CONTENT.hero.primaryCta, 50),
       secondaryCta: mergeText(base.hero?.secondaryCta, DEFAULT_CONTENT.hero.secondaryCta, 50),
+      panelKicker: mergeText(base.hero?.panelKicker, DEFAULT_CONTENT.hero.panelKicker, 60),
       panelTitle: mergeText(base.hero?.panelTitle, DEFAULT_CONTENT.hero.panelTitle, 90),
-      highlights: mergeTextArray(base.hero?.highlights, DEFAULT_CONTENT.hero.highlights, 6, 90)
+      highlights: Array.isArray(base.hero?.highlights)
+        ? cleanTextArray(base.hero.highlights, 8, 90)
+        : DEFAULT_CONTENT.hero.highlights,
+      stats: Array.isArray(base.hero?.stats)
+        ? base.hero.stats.map(cleanHeroStat).filter(Boolean).slice(0, 6)
+        : DEFAULT_CONTENT.hero.stats
+    },
+    trustBand: {
+      items: Array.isArray(base.trustBand?.items)
+        ? base.trustBand.items.map(cleanTrustItem).filter(Boolean).slice(0, 6)
+        : DEFAULT_CONTENT.trustBand.items
     },
     about: mergeText(base.about, DEFAULT_CONTENT.about, 1000),
     aboutSection: {
       kicker: mergeText(base.aboutSection?.kicker, DEFAULT_CONTENT.aboutSection.kicker, 60),
       title: mergeText(base.aboutSection?.title, DEFAULT_CONTENT.aboutSection.title, 110),
       cards: Array.isArray(base.aboutSection?.cards)
-        ? base.aboutSection.cards.map(cleanAboutCard).filter(Boolean).slice(0, 4)
+        ? base.aboutSection.cards.map(cleanAboutCard).filter(Boolean).slice(0, 8)
         : DEFAULT_CONTENT.aboutSection.cards
     },
+    servicesSection: {
+      kicker: mergeText(base.servicesSection?.kicker, DEFAULT_CONTENT.servicesSection.kicker, 60),
+      title: mergeText(base.servicesSection?.title, DEFAULT_CONTENT.servicesSection.title, 110)
+    },
     services: Array.isArray(base.services)
-      ? base.services.map(cleanService).filter(Boolean).slice(0, 8)
+      ? base.services.map(cleanService).filter(Boolean).slice(0, 12)
       : DEFAULT_CONTENT.services,
-    cta: mergeText(base.cta, DEFAULT_CONTENT.cta, 180),
+    processSection: {
+      kicker: mergeText(base.processSection?.kicker, DEFAULT_CONTENT.processSection.kicker, 60),
+      title: mergeText(base.processSection?.title, DEFAULT_CONTENT.processSection.title, 110),
+      steps: Array.isArray(base.processSection?.steps)
+        ? base.processSection.steps.map(cleanProcessStep).filter(Boolean).slice(0, 8)
+        : DEFAULT_CONTENT.processSection.steps
+    },
+    gallerySection: {
+      kicker: mergeText(base.gallerySection?.kicker, DEFAULT_CONTENT.gallerySection.kicker, 60),
+      title: mergeText(base.gallerySection?.title, DEFAULT_CONTENT.gallerySection.title, 110)
+    },
+    contactSection: {
+      kicker: mergeText(base.contactSection?.kicker, DEFAULT_CONTENT.contactSection.kicker, 60),
+      title: mergeText(base.contactSection?.title, DEFAULT_CONTENT.contactSection.title, 110),
+      message: contactMessage
+    },
+    cta: contactMessage,
     gallery: Array.isArray(base.gallery)
       ? base.gallery.map(cleanGalleryItem).filter(Boolean)
       : []
   };
 
-  if (!normalized.services.length) {
-    normalized.services = DEFAULT_CONTENT.services;
-  }
-  if (!normalized.aboutSection.cards.length) {
-    normalized.aboutSection.cards = DEFAULT_CONTENT.aboutSection.cards;
-  }
   return normalized;
 }
 
@@ -315,45 +537,65 @@ app.put("/api/content", requireAdminApi, async (req, res) => {
   try {
     const current = await loadContent();
     const incoming = req.body || {};
+    const mergedContactSection = {
+      ...(current.contactSection || {}),
+      ...(incoming.contactSection || {})
+    };
 
     const updated = {
       ...current,
+      ...incoming,
       meta: {
-        businessName: mergeText(incoming.meta?.businessName, current.meta.businessName, 80),
-        phone: mergeText(incoming.meta?.phone, current.meta.phone, 40),
-        email: mergeText(incoming.meta?.email, current.meta.email, 120)
+        ...(current.meta || {}),
+        ...(incoming.meta || {})
+      },
+      labels: {
+        ...(current.labels || {}),
+        ...(incoming.labels || {})
+      },
+      visibility: {
+        ...(current.visibility || {}),
+        ...(incoming.visibility || {})
       },
       hero: {
-        eyebrow: mergeText(incoming.hero?.eyebrow, current.hero.eyebrow, 80),
-        title: mergeText(incoming.hero?.title, current.hero.title, 90),
-        subtitle: mergeText(incoming.hero?.subtitle, current.hero.subtitle, 220),
-        primaryCta: mergeText(incoming.hero?.primaryCta, current.hero.primaryCta, 50),
-        secondaryCta: mergeText(incoming.hero?.secondaryCta, current.hero.secondaryCta, 50),
-        panelTitle: mergeText(incoming.hero?.panelTitle, current.hero.panelTitle, 90),
-        highlights: Array.isArray(incoming.hero?.highlights)
-          ? mergeTextArray(incoming.hero.highlights, current.hero.highlights, 6, 90)
-          : current.hero.highlights
+        ...(current.hero || {}),
+        ...(incoming.hero || {})
       },
-      about: mergeText(incoming.about, current.about, 1000),
+      trustBand: {
+        ...(current.trustBand || {}),
+        ...(incoming.trustBand || {})
+      },
       aboutSection: {
-        kicker: mergeText(
-          incoming.aboutSection?.kicker,
-          current.aboutSection.kicker,
-          60
-        ),
-        title: mergeText(incoming.aboutSection?.title, current.aboutSection.title, 110),
-        cards: Array.isArray(incoming.aboutSection?.cards)
-          ? incoming.aboutSection.cards.map(cleanAboutCard).filter(Boolean).slice(0, 4)
-          : current.aboutSection.cards
+        ...(current.aboutSection || {}),
+        ...(incoming.aboutSection || {})
       },
-      cta: mergeText(incoming.cta, current.cta, 180),
-      services: Array.isArray(incoming.services)
-        ? incoming.services.map(cleanService).filter(Boolean).slice(0, 8)
-        : current.services
+      servicesSection: {
+        ...(current.servicesSection || {}),
+        ...(incoming.servicesSection || {})
+      },
+      processSection: {
+        ...(current.processSection || {}),
+        ...(incoming.processSection || {})
+      },
+      gallerySection: {
+        ...(current.gallerySection || {}),
+        ...(incoming.gallerySection || {})
+      },
+      contactSection: mergedContactSection
     };
 
-    if (Array.isArray(incoming.gallery)) {
-      updated.gallery = incoming.gallery.map(cleanGalleryItem).filter(Boolean);
+    if (typeof incoming.cta === "string" && !incoming.contactSection?.message) {
+      updated.contactSection.message = incoming.cta;
+    }
+
+    if (typeof incoming.contactSection?.message === "string") {
+      updated.cta = incoming.contactSection.message;
+    } else if (typeof incoming.cta === "string") {
+      updated.cta = incoming.cta;
+    } else if (typeof updated.contactSection?.message === "string") {
+      updated.cta = updated.contactSection.message;
+    } else {
+      updated.cta = current.cta;
     }
 
     const saved = await saveContent(updated);

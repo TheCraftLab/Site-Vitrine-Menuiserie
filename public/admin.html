@@ -11,78 +11,103 @@
     <main class="wrapper">
       <header class="panel">
         <h1>Administration du site</h1>
-        <p>Modifiez les textes et les photos du site vitrine.</p>
+        <p>Editez et masquez chaque element du site public.</p>
         <p class="small">Acces protege par identifiant/mot de passe.</p>
       </header>
 
       <section class="panel">
-        <h2>Textes</h2>
+        <h2>Contenu et visibilite</h2>
         <form id="contentForm">
-          <label>
-            Nom entreprise
-            <input id="businessName" type="text" maxlength="80" required />
-          </label>
-          <label>
-            Telephone
-            <input id="phone" type="text" maxlength="40" />
-          </label>
-          <label>
-            Email
-            <input id="email" type="email" maxlength="120" />
-          </label>
-          <label>
-            Hero - Surtitre
-            <input id="heroEyebrow" type="text" maxlength="80" />
-          </label>
-          <label>
-            Titre principal
-            <input id="heroTitle" type="text" maxlength="90" required />
-          </label>
-          <label>
-            Sous-titre
-            <textarea id="heroSubtitle" maxlength="220" rows="2"></textarea>
-          </label>
-          <label>
-            Hero - Bouton principal
-            <input id="heroPrimaryCta" type="text" maxlength="50" />
-          </label>
-          <label>
-            Hero - Bouton secondaire
-            <input id="heroSecondaryCta" type="text" maxlength="50" />
-          </label>
-          <label>
-            Hero - Titre panneau
-            <input id="heroPanelTitle" type="text" maxlength="90" />
-          </label>
-          <label>
-            Hero - Points forts (1 ligne = 1 point)
-            <textarea id="heroHighlightsText" rows="4"></textarea>
-          </label>
-          <label>
-            A propos - Surtitre section
-            <input id="aboutKicker" type="text" maxlength="60" />
-          </label>
-          <label>
-            A propos - Titre section
-            <input id="aboutTitle" type="text" maxlength="110" />
-          </label>
-          <label>
-            A propos
-            <textarea id="aboutText" maxlength="1000" rows="4"></textarea>
-          </label>
-          <label>
-            A propos - Cartes (1 ligne = Titre|Description)
-            <textarea id="aboutCardsText" rows="5"></textarea>
-          </label>
-          <label>
-            Services (1 ligne = Titre|Description)
-            <textarea id="servicesText" rows="6"></textarea>
-          </label>
-          <label>
-            Message de contact
-            <textarea id="ctaText" maxlength="180" rows="2"></textarea>
-          </label>
-          <button type="submit">Enregistrer les textes</button>
+          <fieldset class="group">
+            <legend>Visibilite des blocs</legend>
+            <div class="toggle-grid">
+              <label class="toggle"><input id="visTopbar" type="checkbox" /> Topbar</label>
+              <label class="toggle"><input id="visNav" type="checkbox" /> Navigation</label>
+              <label class="toggle"><input id="visTopbarCta" type="checkbox" /> Bouton topbar</label>
+              <label class="toggle"><input id="visHero" type="checkbox" /> Hero</label>
+              <label class="toggle"><input id="visHeroEyebrow" type="checkbox" /> Hero surtitre</label>
+              <label class="toggle"><input id="visHeroSubtitle" type="checkbox" /> Hero sous-titre</label>
+              <label class="toggle"><input id="visHeroPrimaryCta" type="checkbox" /> Hero bouton principal</label>
+              <label class="toggle"><input id="visHeroSecondaryCta" type="checkbox" /> Hero bouton secondaire</label>
+              <label class="toggle"><input id="visHeroHighlights" type="checkbox" /> Hero points forts</label>
+              <label class="toggle"><input id="visHeroPanel" type="checkbox" /> Hero panneau</label>
+              <label class="toggle"><input id="visHeroPanelKicker" type="checkbox" /> Hero panneau surtitre</label>
+              <label class="toggle"><input id="visHeroPanelStats" type="checkbox" /> Hero statistiques</label>
+              <label class="toggle"><input id="visTrustBand" type="checkbox" /> Bande confiance</label>
+              <label class="toggle"><input id="visAbout" type="checkbox" /> Section a propos</label>
+              <label class="toggle"><input id="visAboutText" type="checkbox" /> Texte a propos</label>
+              <label class="toggle"><input id="visAboutCards" type="checkbox" /> Cartes a propos</label>
+              <label class="toggle"><input id="visServices" type="checkbox" /> Section services</label>
+              <label class="toggle"><input id="visProcess" type="checkbox" /> Section process</label>
+              <label class="toggle"><input id="visGallery" type="checkbox" /> Section realisations</label>
+              <label class="toggle"><input id="visContact" type="checkbox" /> Section contact</label>
+              <label class="toggle"><input id="visContactPhone" type="checkbox" /> Bouton telephone</label>
+              <label class="toggle"><input id="visContactEmail" type="checkbox" /> Bouton email</label>
+              <label class="toggle"><input id="visFooter" type="checkbox" /> Footer</label>
+              <label class="toggle"><input id="visBackToTop" type="checkbox" /> Lien retour haut</label>
+              <label class="toggle"><input id="visMobileCta" type="checkbox" /> CTA mobile</label>
+              <label class="toggle"><input id="visMobilePhone" type="checkbox" /> CTA mobile appel</label>
+              <label class="toggle"><input id="visMobileEmail" type="checkbox" /> CTA mobile email</label>
+            </div>
+          </fieldset>
+
+          <fieldset class="group">
+            <legend>Identite et navigation</legend>
+            <label>Nom entreprise <input id="businessName" type="text" maxlength="80" /></label>
+            <label>Telephone <input id="phone" type="text" maxlength="40" /></label>
+            <label>Email <input id="email" type="email" maxlength="120" /></label>
+            <label>Navigation - A propos <input id="navAbout" type="text" maxlength="26" /></label>
+            <label>Navigation - Services <input id="navServices" type="text" maxlength="26" /></label>
+            <label>Navigation - Realisations <input id="navGallery" type="text" maxlength="26" /></label>
+            <label>Navigation - Contact <input id="navContact" type="text" maxlength="26" /></label>
+            <label>Topbar - Bouton <input id="topbarCtaLabel" type="text" maxlength="50" /></label>
+            <label>Footer - Retour en haut <input id="backToTopLabel" type="text" maxlength="50" /></label>
+            <label>Mobile - Libelle appel <input id="mobilePhoneLabel" type="text" maxlength="24" /></label>
+            <label>Mobile - Libelle email <input id="mobileEmailLabel" type="text" maxlength="24" /></label>
+          </fieldset>
+
+          <fieldset class="group">
+            <legend>Hero</legend>
+            <label>Hero - Surtitre <input id="heroEyebrow" type="text" maxlength="80" /></label>
+            <label>Titre principal <input id="heroTitle" type="text" maxlength="90" /></label>
+            <label>Sous-titre <textarea id="heroSubtitle" maxlength="220" rows="2"></textarea></label>
+            <label>Hero - Bouton principal <input id="heroPrimaryCta" type="text" maxlength="50" /></label>
+            <label>Hero - Bouton secondaire <input id="heroSecondaryCta" type="text" maxlength="50" /></label>
+            <label>Hero panneau - Surtitre <input id="heroPanelKicker" type="text" maxlength="60" /></label>
+            <label>Hero panneau - Titre <input id="heroPanelTitle" type="text" maxlength="90" /></label>
+            <label>Hero - Points forts (1 ligne = texte) <textarea id="heroHighlightsText" rows="4"></textarea></label>
+            <label>Hero - Stats (1 ligne = Valeur|Libelle) <textarea id="heroStatsText" rows="4"></textarea></label>
+          </fieldset>
+
+          <fieldset class="group">
+            <legend>Bande confiance et a propos</legend>
+            <label>Bande confiance (1 ligne = Titre|Texte) <textarea id="trustItemsText" rows="4"></textarea></label>
+            <label>A propos - Surtitre section <input id="aboutKicker" type="text" maxlength="60" /></label>
+            <label>A propos - Titre section <input id="aboutTitle" type="text" maxlength="110" /></label>
+            <label>A propos - Texte <textarea id="aboutText" maxlength="1000" rows="4"></textarea></label>
+            <label>A propos - Cartes (1 ligne = Titre|Description) <textarea id="aboutCardsText" rows="5"></textarea></label>
+          </fieldset>
+
+          <fieldset class="group">
+            <legend>Services, process et realisations</legend>
+            <label>Services - Surtitre section <input id="servicesKicker" type="text" maxlength="60" /></label>
+            <label>Services - Titre section <input id="servicesTitle" type="text" maxlength="110" /></label>
+            <label>Services (1 ligne = Titre|Description) <textarea id="servicesText" rows="6"></textarea></label>
+            <label>Process - Surtitre section <input id="processKicker" type="text" maxlength="60" /></label>
+            <label>Process - Titre section <input id="processTitle" type="text" maxlength="110" /></label>
+            <label>Process - Etapes (1 ligne = Numero|Titre|Description) <textarea id="processStepsText" rows="6"></textarea></label>
+            <label>Realisations - Surtitre section <input id="galleryKicker" type="text" maxlength="60" /></label>
+            <label>Realisations - Titre section <input id="galleryTitle" type="text" maxlength="110" /></label>
+          </fieldset>
+
+          <fieldset class="group">
+            <legend>Contact</legend>
+            <label>Contact - Surtitre section <input id="contactKicker" type="text" maxlength="60" /></label>
+            <label>Contact - Titre section <input id="contactTitle" type="text" maxlength="110" /></label>
+            <label>Message contact <textarea id="contactMessage" maxlength="180" rows="2"></textarea></label>
+          </fieldset>
+
+          <button type="submit">Enregistrer les modifications</button>
         </form>
       </section>
 

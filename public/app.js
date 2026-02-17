@@ -93,6 +93,102 @@ function registerReveals(scope = document) {
   });
 }
 
+function setText(id, value) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  element.textContent = value;
+}
+
+function setVisible(id, isVisible) {
+  const element = document.getElementById(id);
+  if (!element) return;
+  element.classList.toggle("is-hidden", !isVisible);
+}
+
+function isVisible(visibility, key, fallback = true) {
+  const value = visibility?.[key];
+  return typeof value === "boolean" ? value : fallback;
+}
+
+function setLinkHref(id, href) {
+  const link = document.getElementById(id);
+  if (!link) return;
+  link.href = href;
+}
+
+function renderHeroHighlights(highlights = []) {
+  const list = document.getElementById("heroHighlightsList");
+  if (!list) return;
+  list.innerHTML = "";
+
+  highlights.forEach((item) => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+}
+
+function renderHeroStats(stats = []) {
+  const container = document.getElementById("heroStatsList");
+  if (!container) return;
+  container.innerHTML = "";
+
+  stats.forEach((item) => {
+    const article = document.createElement("article");
+    const strong = document.createElement("strong");
+    strong.textContent = item.value || "";
+    const span = document.createElement("span");
+    span.textContent = item.label || "";
+    article.appendChild(strong);
+    article.appendChild(span);
+    container.appendChild(article);
+  });
+}
+
+function renderTrustItems(items = []) {
+  const container = document.getElementById("trustItemsList");
+  if (!container) return;
+  container.innerHTML = "";
+
+  items.forEach((item, index) => {
+    const article = document.createElement("article");
+    article.className = "trust-item reveal is-stagger";
+    article.style.setProperty("--i", String(index));
+
+    const title = document.createElement("h3");
+    title.textContent = item.title || "";
+
+    const text = document.createElement("p");
+    text.textContent = item.text || "";
+
+    article.appendChild(title);
+    article.appendChild(text);
+    container.appendChild(article);
+  });
+}
+
+function renderAboutCards(cards = []) {
+  const container = document.getElementById("aboutCardsList");
+  if (!container) return;
+  container.innerHTML = "";
+
+  cards.forEach((card, index) => {
+    const article = document.createElement("article");
+    article.className = "reveal is-stagger";
+    article.style.setProperty("--i", String(index));
+
+    const title = document.createElement("h3");
+    title.textContent = card.title;
+
+    const description = document.createElement("p");
+    description.textContent = card.description;
+
+    article.appendChild(title);
+    article.appendChild(description);
+    container.appendChild(article);
+  });
+}
+
 function renderServices(services = []) {
   const container = document.getElementById("servicesList");
   if (!container) return;
@@ -109,6 +205,32 @@ function renderServices(services = []) {
     const description = document.createElement("p");
     description.textContent = service.description;
 
+    article.appendChild(title);
+    article.appendChild(description);
+    container.appendChild(article);
+  });
+}
+
+function renderProcess(steps = []) {
+  const container = document.getElementById("processList");
+  if (!container) return;
+  container.innerHTML = "";
+
+  steps.forEach((step, index) => {
+    const article = document.createElement("article");
+    article.className = "process-item reveal is-stagger";
+    article.style.setProperty("--i", String(index));
+
+    const number = document.createElement("span");
+    number.textContent = step.number || String(index + 1).padStart(2, "0");
+
+    const title = document.createElement("h3");
+    title.textContent = step.title || "";
+
+    const description = document.createElement("p");
+    description.textContent = step.description || "";
+
+    article.appendChild(number);
     article.appendChild(title);
     article.appendChild(description);
     container.appendChild(article);
@@ -143,104 +265,129 @@ function renderGallery(gallery = []) {
   });
 }
 
-function renderHeroHighlights(highlights = []) {
-  const list = document.getElementById("heroHighlightsList");
-  if (!list) return;
-  list.innerHTML = "";
-
-  highlights.forEach((item) => {
-    const li = document.createElement("li");
-    li.textContent = item;
-    list.appendChild(li);
-  });
-}
-
-function renderAboutCards(cards = []) {
-  const container = document.getElementById("aboutCardsList");
-  if (!container) return;
-  container.innerHTML = "";
-
-  cards.forEach((card, index) => {
-    const article = document.createElement("article");
-    article.className = "reveal is-stagger";
-    article.style.setProperty("--i", String(index));
-
-    const title = document.createElement("h3");
-    title.textContent = card.title;
-
-    const description = document.createElement("p");
-    description.textContent = card.description;
-
-    article.appendChild(title);
-    article.appendChild(description);
-    container.appendChild(article);
-  });
-}
-
 function applyContactLinks(phone = "", email = "") {
-  const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : "#";
-  const emailHref = email ? `mailto:${email}` : "#";
+  const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : "#contact";
+  const emailHref = email ? `mailto:${email}` : "#contact";
 
-  const phoneLink = document.getElementById("phoneLink");
-  if (phoneLink) {
-    phoneLink.href = phoneHref;
-    phoneLink.textContent = phone || "Telephone a renseigner";
-  }
+  setLinkHref("phoneLink", phoneHref);
+  setText("phoneLink", phone || "Telephone a renseigner");
 
-  const emailLink = document.getElementById("emailLink");
-  if (emailLink) {
-    emailLink.href = emailHref;
-    emailLink.textContent = email || "Email a renseigner";
-  }
+  setLinkHref("emailLink", emailHref);
+  setText("emailLink", email || "Email a renseigner");
 
-  const mobilePhoneLink = document.getElementById("mobilePhoneLink");
-  if (mobilePhoneLink) {
-    mobilePhoneLink.href = phoneHref;
-    mobilePhoneLink.textContent = phone ? "Appeler" : "Devis";
-  }
-
-  const mobileEmailLink = document.getElementById("mobileEmailLink");
-  if (mobileEmailLink) {
-    mobileEmailLink.href = emailHref;
-    mobileEmailLink.textContent = email ? "Email" : "Contact";
-  }
+  setLinkHref("mobilePhoneLink", phoneHref);
+  setLinkHref("mobileEmailLink", emailHref);
 }
 
-function setText(id, value) {
-  const node = document.getElementById(id);
-  if (node) node.textContent = value;
+function applyVisibility(visibility = {}) {
+  setVisible("topbarWrap", isVisible(visibility, "topbar", true));
+  setVisible("mainNav", isVisible(visibility, "nav", true));
+  setVisible("topbarCtaLink", isVisible(visibility, "topbarCta", true));
+
+  setVisible("heroSection", isVisible(visibility, "hero", true));
+  setVisible("heroEyebrow", isVisible(visibility, "heroEyebrow", true));
+  setVisible("heroSubtitle", isVisible(visibility, "heroSubtitle", true));
+  setVisible("heroPrimaryCta", isVisible(visibility, "heroPrimaryCta", true));
+  setVisible("heroSecondaryCta", isVisible(visibility, "heroSecondaryCta", true));
+  setVisible("heroHighlightsList", isVisible(visibility, "heroHighlights", true));
+  setVisible("heroPanel", isVisible(visibility, "heroPanel", true));
+  setVisible("heroPanelKicker", isVisible(visibility, "heroPanelKicker", true));
+  setVisible("heroStatsList", isVisible(visibility, "heroPanelStats", true));
+
+  setVisible("trustBandSection", isVisible(visibility, "trustBand", true));
+
+  setVisible("a-propos", isVisible(visibility, "about", true));
+  setVisible("aboutText", isVisible(visibility, "aboutText", true));
+  setVisible("aboutCardsList", isVisible(visibility, "aboutCards", true));
+
+  setVisible("services", isVisible(visibility, "services", true));
+  setVisible("process", isVisible(visibility, "process", true));
+  setVisible("realisations", isVisible(visibility, "gallery", true));
+  setVisible("contact", isVisible(visibility, "contact", true));
+
+  setVisible("phoneLink", isVisible(visibility, "contactPhone", true));
+  setVisible("emailLink", isVisible(visibility, "contactEmail", true));
+
+  setVisible("footerSection", isVisible(visibility, "footer", true));
+  setVisible("backToTopLink", isVisible(visibility, "backToTop", true));
+
+  setVisible("mobileCta", isVisible(visibility, "mobileCta", true));
+  setVisible("mobilePhoneLink", isVisible(visibility, "mobilePhone", true));
+  setVisible("mobileEmailLink", isVisible(visibility, "mobileEmail", true));
+
+  setVisible("navAbout", isVisible(visibility, "about", true));
+  setVisible("navServices", isVisible(visibility, "services", true));
+  setVisible("navGallery", isVisible(visibility, "gallery", true));
+  setVisible("navContact", isVisible(visibility, "contact", true));
 }
 
 function renderContent(content) {
   const safeContent = content || {};
+  const meta = safeContent.meta || {};
+  const labels = safeContent.labels || {};
   const hero = safeContent.hero || {};
   const aboutSection = safeContent.aboutSection || {};
-  const meta = safeContent.meta || {};
+  const servicesSection = safeContent.servicesSection || {};
+  const processSection = safeContent.processSection || {};
+  const gallerySection = safeContent.gallerySection || {};
+  const contactSection = safeContent.contactSection || {};
 
-  setText("heroEyebrow", hero.eyebrow || "");
   setText("businessName", meta.businessName || "");
   setText("footerBusinessName", meta.businessName || "");
+
+  setText("navAbout", labels.navAbout || "Atelier");
+  setText("navServices", labels.navServices || "Prestations");
+  setText("navGallery", labels.navGallery || "Realisations");
+  setText("navContact", labels.navContact || "Contact");
+
+  setText("topbarCtaLink", labels.topbarCta || hero.primaryCta || "Demander un devis");
+  setLinkHref("topbarCtaLink", "#contact");
+
+  setText("backToTopLink", labels.backToTop || "Retour en haut");
+  setLinkHref("backToTopLink", "#accueil");
+
+  setText("mobilePhoneLink", labels.mobilePhone || "Appeler");
+  setText("mobileEmailLink", labels.mobileEmail || "Email");
+
+  setText("heroEyebrow", hero.eyebrow || "");
   setText("heroTitle", hero.title || "");
   setText("heroSubtitle", hero.subtitle || "");
   setText("heroPrimaryCta", hero.primaryCta || "Demander un devis");
   setText("heroSecondaryCta", hero.secondaryCta || "Voir les realisations");
+  setText("heroPanelKicker", hero.panelKicker || "");
   setText("heroPanelTitle", hero.panelTitle || "");
+
   setText("aboutKicker", aboutSection.kicker || "");
   setText("aboutTitle", aboutSection.title || "");
   setText("aboutText", safeContent.about || "");
-  setText("ctaText", safeContent.cta || "");
 
-  const primaryCta = document.getElementById("heroPrimaryCta");
-  if (primaryCta) primaryCta.href = "#contact";
+  setText("servicesKicker", servicesSection.kicker || "");
+  setText("servicesTitle", servicesSection.title || "");
 
-  const secondaryCta = document.getElementById("heroSecondaryCta");
-  if (secondaryCta) secondaryCta.href = "#realisations";
+  setText("processKicker", processSection.kicker || "");
+  setText("processTitle", processSection.title || "");
+
+  setText("galleryKicker", gallerySection.kicker || "");
+  setText("galleryTitle", gallerySection.title || "");
+
+  setText("contactKicker", contactSection.kicker || "");
+  setText("contactTitle", contactSection.title || "");
+  setText("ctaText", contactSection.message || safeContent.cta || "");
+
+  setLinkHref("heroPrimaryCta", "#contact");
+  setLinkHref("heroSecondaryCta", "#realisations");
 
   applyContactLinks(meta.phone || "", meta.email || "");
+
   renderHeroHighlights(hero.highlights || []);
+  renderHeroStats(hero.stats || []);
+  renderTrustItems(safeContent.trustBand?.items || []);
   renderAboutCards(aboutSection.cards || []);
   renderServices(safeContent.services || []);
+  renderProcess(processSection.steps || []);
   renderGallery(safeContent.gallery || []);
+
+  applyVisibility(safeContent.visibility || {});
   registerReveals(document);
 }
 

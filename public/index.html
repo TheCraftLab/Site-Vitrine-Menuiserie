@@ -21,20 +21,20 @@
     <div class="backdrop" aria-hidden="true"></div>
 
     <header class="masthead" id="accueil">
-      <div class="container topbar-wrap reveal">
+      <div class="container topbar-wrap reveal" id="topbarWrap">
         <div class="topbar">
           <a href="#accueil" class="brand" id="businessName">Atelier Menuiserie Dupont</a>
-          <nav class="nav" aria-label="Navigation principale">
-            <a href="#a-propos">Atelier</a>
-            <a href="#services">Prestations</a>
-            <a href="#realisations">Realisations</a>
-            <a href="#contact">Contact</a>
+          <nav class="nav" id="mainNav" aria-label="Navigation principale">
+            <a href="#a-propos" id="navAbout">Atelier</a>
+            <a href="#services" id="navServices">Prestations</a>
+            <a href="#realisations" id="navGallery">Realisations</a>
+            <a href="#contact" id="navContact">Contact</a>
           </nav>
-          <a class="btn btn-sm" href="#contact">Demander un devis</a>
+          <a class="btn btn-sm" href="#contact" id="topbarCtaLink">Demander un devis</a>
         </div>
       </div>
 
-      <div class="container hero-grid">
+      <div class="container hero-grid" id="heroSection">
         <div class="hero-copy reveal">
           <p class="eyebrow" id="heroEyebrow">Menuiserie artisanale et contemporaine</p>
           <h1 id="heroTitle">Des menuiseries sur mesure, posees proprement.</h1>
@@ -45,41 +45,20 @@
             <a class="btn" href="#contact" id="heroPrimaryCta">Demander un devis</a>
             <a class="btn btn-ghost" href="#realisations" id="heroSecondaryCta">Voir les realisations</a>
           </div>
-          <ul class="proof-list" id="heroHighlightsList">
-            <li>Devis detaille sous 48h</li>
-            <li>Materiaux bois, alu et PVC</li>
-            <li>Pose soignee et delais tenus</li>
-          </ul>
+          <ul class="proof-list" id="heroHighlightsList"></ul>
         </div>
 
-        <aside class="hero-panel reveal">
-          <p class="panel-kicker">Projet neuf ou renovation</p>
+        <aside class="hero-panel reveal" id="heroPanel">
+          <p class="panel-kicker" id="heroPanelKicker">Projet neuf ou renovation</p>
           <h2 class="panel-title" id="heroPanelTitle">Un interlocuteur unique, du plan a la finition.</h2>
-          <div class="panel-stats">
-            <article>
-              <strong>+250</strong>
-              <span>chantiers livres</span>
-            </article>
-            <article>
-              <strong>4.8/5</strong>
-              <span>avis clients</span>
-            </article>
-            <article>
-              <strong>10 ans</strong>
-              <span>d'experience</span>
-            </article>
-          </div>
+          <div class="panel-stats" id="heroStatsList"></div>
         </aside>
       </div>
     </header>
 
     <main>
-      <section class="trust-band">
-        <div class="container trust-grid reveal">
-          <p><strong>Reponse rapide :</strong> retour sous 24h pour qualifier votre besoin.</p>
-          <p><strong>Intervention locale :</strong> visites techniques et conseils adaptes a votre chantier.</p>
-          <p><strong>Garantie :</strong> execution propre, materiaux selectionnes et suivi apres pose.</p>
-        </div>
+      <section class="trust-band" id="trustBandSection">
+        <div class="container trust-grid reveal" id="trustItemsList"></div>
       </section>
 
       <section class="section container" id="a-propos">
@@ -96,48 +75,27 @@
       <section class="section section-contrast" id="services">
         <div class="container">
           <div class="section-head reveal">
-            <p class="section-kicker">Prestations</p>
-            <h2>Des solutions adaptees a chaque projet</h2>
+            <p class="section-kicker" id="servicesKicker">Prestations</p>
+            <h2 id="servicesTitle">Des solutions adaptees a chaque projet</h2>
           </div>
           <div class="cards" id="servicesList"></div>
         </div>
       </section>
 
-      <section class="section process">
+      <section class="section process" id="process">
         <div class="container">
           <div class="section-head reveal">
-            <p class="section-kicker">Methode</p>
-            <h2>Un process clair en 4 etapes</h2>
+            <p class="section-kicker" id="processKicker">Methode</p>
+            <h2 id="processTitle">Un process clair en 4 etapes</h2>
           </div>
-          <div class="process-grid">
-            <article class="process-item reveal is-stagger" style="--i: 0">
-              <span>01</span>
-              <h3>Echange initial</h3>
-              <p>Vous decrivez votre besoin, vos contraintes et le niveau de finition attendu.</p>
-            </article>
-            <article class="process-item reveal is-stagger" style="--i: 1">
-              <span>02</span>
-              <h3>Visite et cotes</h3>
-              <p>Nous validons les dimensions, la technique et les options de materiaux.</p>
-            </article>
-            <article class="process-item reveal is-stagger" style="--i: 2">
-              <span>03</span>
-              <h3>Fabrication</h3>
-              <p>Chaque element est prepare selon votre interieur et votre usage quotidien.</p>
-            </article>
-            <article class="process-item reveal is-stagger" style="--i: 3">
-              <span>04</span>
-              <h3>Pose et controle</h3>
-              <p>Installation, reglages et controle final pour un rendu net et durable.</p>
-            </article>
-          </div>
+          <div class="process-grid" id="processList"></div>
         </div>
       </section>
 
       <section class="section container" id="realisations">
         <div class="section-head reveal">
-          <p class="section-kicker">Portfolio</p>
-          <h2>Realisations recentes</h2>
+          <p class="section-kicker" id="galleryKicker">Portfolio</p>
+          <h2 id="galleryTitle">Realisations recentes</h2>
         </div>
         <div class="gallery" id="galleryList"></div>
       </section>
@@ -145,8 +103,8 @@
       <section class="section section-contact" id="contact">
         <div class="container contact-shell reveal">
           <div class="contact-copy">
-            <p class="section-kicker">Votre projet</p>
-            <h2>Parlons de vos travaux de menuiserie</h2>
+            <p class="section-kicker" id="contactKicker">Votre projet</p>
+            <h2 id="contactTitle">Parlons de vos travaux de menuiserie</h2>
             <p id="ctaText">Demandez un devis gratuit sous 48h.</p>
           </div>
           <div class="contact-grid">
@@ -157,14 +115,14 @@
       </section>
     </main>
 
-    <footer class="footer">
+    <footer class="footer" id="footerSection">
       <div class="container footer-inner">
         <small>© <span id="year"></span> <span id="footerBusinessName">Atelier Menuiserie Dupont</span></small>
-        <a href="#accueil">Retour en haut</a>
+        <a href="#accueil" id="backToTopLink">Retour en haut</a>
       </div>
     </footer>
 
-    <div class="mobile-cta" aria-label="Actions rapides">
+    <div class="mobile-cta" id="mobileCta" aria-label="Actions rapides">
       <a id="mobilePhoneLink" href="#contact">Appeler</a>
       <a id="mobileEmailLink" href="#contact">Email</a>
     </div>

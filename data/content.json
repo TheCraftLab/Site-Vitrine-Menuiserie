@@ -4,17 +4,87 @@
     "phone": "06 00 00 00 00",
     "email": "contact@menuiserie-dupont.fr"
   },
+  "labels": {
+    "navAbout": "Atelier",
+    "navServices": "Prestations",
+    "navGallery": "Realisations",
+    "navContact": "Contact",
+    "topbarCta": "Demander un devis",
+    "backToTop": "Retour en haut",
+    "mobilePhone": "Appeler",
+    "mobileEmail": "Email"
+  },
+  "visibility": {
+    "topbar": true,
+    "nav": true,
+    "topbarCta": true,
+    "hero": true,
+    "heroEyebrow": true,
+    "heroSubtitle": true,
+    "heroPrimaryCta": true,
+    "heroSecondaryCta": true,
+    "heroHighlights": true,
+    "heroPanel": true,
+    "heroPanelKicker": true,
+    "heroPanelStats": true,
+    "trustBand": true,
+    "about": true,
+    "aboutText": true,
+    "aboutCards": true,
+    "services": true,
+    "process": true,
+    "gallery": true,
+    "contact": true,
+    "contactPhone": true,
+    "contactEmail": true,
+    "footer": true,
+    "backToTop": true,
+    "mobileCta": true,
+    "mobilePhone": true,
+    "mobileEmail": true
+  },
   "hero": {
     "eyebrow": "Menuiserie artisanale, renovation et sur mesure",
     "title": "Des menuiseries durables, posees avec precision",
     "subtitle": "Fenetres, portes, escaliers et agencements interieurs avec une execution propre du premier rendez-vous a la pose finale.",
     "primaryCta": "Demander un devis",
     "secondaryCta": "Voir les realisations",
+    "panelKicker": "Projet neuf ou renovation",
     "panelTitle": "Un interlocuteur unique pour un chantier maitrise",
     "highlights": [
       "Devis detaille sous 48h",
       "Bois, PVC et aluminium",
       "Pose soignee et delais annonces"
+    ],
+    "stats": [
+      {
+        "value": "+250",
+        "label": "chantiers livres"
+      },
+      {
+        "value": "4.8/5",
+        "label": "avis clients"
+      },
+      {
+        "value": "10 ans",
+        "label": "d'experience"
+      }
+    ]
+  },
+  "trustBand": {
+    "items": [
+      {
+        "title": "Reponse rapide",
+        "text": "Retour sous 24h pour qualifier votre besoin."
+      },
+      {
+        "title": "Intervention locale",
+        "text": "Visites techniques et conseils adaptes a votre chantier."
+      },
+      {
+        "title": "Garantie",
+        "text": "Execution propre, materiaux selectionnes et suivi apres pose."
+      }
     ]
   },
   "about": "Nous accompagnons particuliers et professionnels sur des projets de menuiserie interieure et exterieure. Chaque chantier est prepare avec prise de cotes, conseils techniques, choix des materiaux et suivi jusqu'aux finitions.",
@@ -36,6 +106,10 @@
       }
     ]
   },
+  "servicesSection": {
+    "kicker": "Prestations",
+    "title": "Des solutions adaptees a chaque projet"
+  },
   "services": [
     {
       "title": "Fenetres et ouvertures",
@@ -54,6 +128,41 @@
       "description": "Placards, bibliotheques, dressing et rangements optimises pour vos espaces."
     }
   ],
+  "processSection": {
+    "kicker": "Methode",
+    "title": "Un process clair en 4 etapes",
+    "steps": [
+      {
+        "number": "01",
+        "title": "Echange initial",
+        "description": "Vous decrivez votre besoin, vos contraintes et le niveau de finition attendu."
+      },
+      {
+        "number": "02",
+        "title": "Visite et cotes",
+        "description": "Nous validons les dimensions, la technique et les options de materiaux."
+      },
+      {
+        "number": "03",
+        "title": "Fabrication",
+        "description": "Chaque element est prepare selon votre interieur et votre usage quotidien."
+      },
+      {
+        "number": "04",
+        "title": "Pose et controle",
+        "description": "Installation, reglages et controle final pour un rendu net et durable."
+      }
+    ]
+  },
+  "gallerySection": {
+    "kicker": "Portfolio",
+    "title": "Realisations recentes"
+  },
+  "contactSection": {
+    "kicker": "Votre projet",
+    "title": "Parlons de vos travaux de menuiserie",
+    "message": "Parlez-nous de votre projet et recevez un devis clair et personnalise."
+  },
   "cta": "Parlez-nous de votre projet et recevez un devis clair et personnalise.",
   "gallery": []
 }

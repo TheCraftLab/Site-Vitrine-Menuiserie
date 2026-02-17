@@ -20,7 +20,7 @@ body {
 }
 
 .wrapper {
-  width: min(980px, calc(100% - 2rem));
+  width: min(1100px, calc(100% - 2rem));
   margin: 2rem auto;
 }
 
@@ -44,7 +44,20 @@ h2 {
 
 form {
   display: grid;
-  gap: 0.8rem;
+  gap: 1rem;
+}
+
+.group {
+  border: 1px solid var(--line);
+  border-radius: 0.8rem;
+  padding: 0.9rem;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.group legend {
+  font-weight: 700;
+  padding: 0 0.25rem;
 }
 
 label {
@@ -79,6 +92,28 @@ button {
 
 button:hover {
   filter: brightness(0.95);
+}
+
+.toggle-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 0.5rem;
+}
+
+.toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  border: 1px solid #dbe0e8;
+  border-radius: 0.65rem;
+  padding: 0.5rem 0.6rem;
+  background: #f8fafe;
+  font-weight: 600;
+}
+
+.toggle input {
+  width: auto;
+  margin: 0;
 }
 
 .row {
