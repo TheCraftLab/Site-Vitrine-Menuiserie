@@ -20,52 +20,59 @@ const DEFAULT_CONTENT = {
     email: "contact@menuiserie-dupont.fr"
   },
   hero: {
-    eyebrow: "Agencement, renovation, sur mesure",
-    title: "Votre menuisier sur mesure",
-    subtitle: "Fenêtres, portes, parquets et agencements intérieurs avec finitions soignées.",
+    eyebrow: "Menuiserie artisanale, renovation et sur mesure",
+    title: "Des menuiseries durables, posees avec precision",
+    subtitle:
+      "Fenetres, portes, escaliers et agencements interieurs avec une execution propre du premier rendez-vous a la pose finale.",
     primaryCta: "Demander un devis",
     secondaryCta: "Voir les realisations",
-    panelTitle: "Finition nette. Delais tenus.",
-    highlights: [
-      "Intervention locale rapide",
-      "Materiaux bois, PVC, aluminium",
-      "Pose et details soignes"
-    ]
+    panelTitle: "Un interlocuteur unique pour un chantier maitrise",
+    highlights: ["Devis detaille sous 48h", "Bois, PVC et aluminium", "Pose soignee et delais annonces"]
   },
   about:
-    "J'accompagne les particuliers et professionnels sur des projets de menuiserie bois, PVC et aluminium. Conseils, prise de cotes et pose.",
+    "Nous accompagnons particuliers et professionnels sur des projets de menuiserie interieure et exterieure. Chaque chantier est prepare avec prise de cotes, conseils techniques, choix des materiaux et suivi jusqu'aux finitions.",
   aboutSection: {
     kicker: "L'atelier",
-    title: "Un style precis, une execution propre",
+    title: "Un savoir-faire artisanal adapte aux exigences d'aujourd'hui",
     cards: [
       {
         title: "Etude technique",
-        description: "Prise de cotes, conseil materiaux et contraintes du bati."
+        description:
+          "Analyse du bati, prise de mesures et recommandations selon vos contraintes reelles."
       },
       {
-        title: "Fabrication adaptee",
-        description: "Details ajustes a votre interieur et a votre usage quotidien."
+        title: "Fabrication precise",
+        description: "Assemblages rigoureux et finitions personnalisees pour un rendu durable."
+      },
+      {
+        title: "Pose controlee",
+        description:
+          "Installation propre, reglages finaux et verification detaillee avant livraison."
       }
     ]
   },
   services: [
     {
-      title: "Fabrication sur mesure",
+      title: "Fenetres et ouvertures",
       description:
-        "Conception et réalisation de menuiseries adaptées à vos dimensions et à votre style."
+        "Remplacement et pose sur mesure pour ameliorer confort, esthetique et isolation."
     },
     {
-      title: "Rénovation",
+      title: "Portes interieures et exterieures",
       description:
-        "Remplacement de menuiseries existantes avec amélioration de l'isolation et du confort."
+        "Conception, renovation et installation avec finitions adaptees a votre style."
     },
     {
-      title: "Pose et finitions",
+      title: "Escaliers et garde-corps",
+      description: "Realisation sur mesure alliant securite, robustesse et lignes contemporaines."
+    },
+    {
+      title: "Agencement interieur",
       description:
-        "Installation propre, réglages précis et finitions pour un résultat durable."
+        "Placards, bibliotheques, dressing et rangements optimises pour vos espaces."
     }
   ],
-  cta: "Demandez un devis gratuit sous 48h.",
+  cta: "Parlez-nous de votre projet et recevez un devis clair et personnalise.",
   gallery: []
 };
 

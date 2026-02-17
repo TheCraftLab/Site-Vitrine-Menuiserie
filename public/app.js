@@ -49,9 +49,7 @@ function setupLightbox() {
     openLightbox(clickedImage.currentSrc || clickedImage.src, clickedImage.alt);
   });
 
-  lightboxClose.addEventListener("click", () => {
-    closeLightbox();
-  });
+  lightboxClose.addEventListener("click", closeLightbox);
 
   lightbox.addEventListener("click", (event) => {
     if (event.target === lightbox) closeLightbox();
@@ -74,7 +72,7 @@ function ensureRevealObserver() {
         revealObserver.unobserve(entry.target);
       });
     },
-    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
+    { threshold: 0.15, rootMargin: "0px 0px -6% 0px" }
   );
 }
 
@@ -95,26 +93,31 @@ function registerReveals(scope = document) {
   });
 }
 
-function renderServices(services) {
+function renderServices(services = []) {
   const container = document.getElementById("servicesList");
+  if (!container) return;
   container.innerHTML = "";
 
   services.forEach((service, index) => {
     const article = document.createElement("article");
     article.className = "card reveal is-stagger";
     article.style.setProperty("--i", String(index));
+
     const title = document.createElement("h3");
     title.textContent = service.title;
+
     const description = document.createElement("p");
     description.textContent = service.description;
+
     article.appendChild(title);
     article.appendChild(description);
     container.appendChild(article);
   });
 }
 
-function renderGallery(gallery) {
+function renderGallery(gallery = []) {
   const container = document.getElementById("galleryList");
+  if (!container) return;
   container.innerHTML = "";
 
   if (!gallery.length) {
@@ -129,37 +132,42 @@ function renderGallery(gallery) {
     const figure = document.createElement("figure");
     figure.className = "gallery-item reveal is-stagger";
     figure.style.setProperty("--i", String(index));
+
     const image = document.createElement("img");
     image.src = item.url;
     image.alt = item.alt;
     image.loading = "lazy";
+
     figure.appendChild(image);
     container.appendChild(figure);
   });
 }
 
-function renderHeroHighlights(highlights) {
+function renderHeroHighlights(highlights = []) {
   const list = document.getElementById("heroHighlightsList");
+  if (!list) return;
   list.innerHTML = "";
 
-  (highlights || []).forEach((item) => {
+  highlights.forEach((item) => {
     const li = document.createElement("li");
     li.textContent = item;
     list.appendChild(li);
   });
 }
 
-function renderAboutCards(cards) {
+function renderAboutCards(cards = []) {
   const container = document.getElementById("aboutCardsList");
+  if (!container) return;
   container.innerHTML = "";
 
-  (cards || []).forEach((card, index) => {
+  cards.forEach((card, index) => {
     const article = document.createElement("article");
     article.className = "reveal is-stagger";
     article.style.setProperty("--i", String(index));
 
     const title = document.createElement("h3");
     title.textContent = card.title;
+
     const description = document.createElement("p");
     description.textContent = card.description;
 
@@ -169,35 +177,70 @@ function renderAboutCards(cards) {
   });
 }
 
-function renderContent(content) {
-  document.getElementById("heroEyebrow").textContent = content.hero.eyebrow;
-  document.getElementById("businessName").textContent = content.meta.businessName;
-  document.getElementById("footerBusinessName").textContent = content.meta.businessName;
-  document.getElementById("heroTitle").textContent = content.hero.title;
-  document.getElementById("heroSubtitle").textContent = content.hero.subtitle;
-  document.getElementById("heroPrimaryCta").textContent = content.hero.primaryCta;
-  document.getElementById("heroSecondaryCta").textContent = content.hero.secondaryCta;
-  document.getElementById("heroPanelTitle").textContent = content.hero.panelTitle;
-  document.getElementById("aboutKicker").textContent = content.aboutSection.kicker;
-  document.getElementById("aboutTitle").textContent = content.aboutSection.title;
-  document.getElementById("aboutText").textContent = content.about;
-  document.getElementById("ctaText").textContent = content.cta;
-
-  const phone = content.meta.phone || "";
-  const email = content.meta.email || "";
+function applyContactLinks(phone = "", email = "") {
+  const phoneHref = phone ? `tel:${phone.replace(/\s+/g, "")}` : "#";
+  const emailHref = email ? `mailto:${email}` : "#";
 
   const phoneLink = document.getElementById("phoneLink");
-  phoneLink.href = phone ? `tel:${phone.replace(/\s+/g, "")}` : "#";
-  phoneLink.textContent = phone || "Telephone a renseigner";
+  if (phoneLink) {
+    phoneLink.href = phoneHref;
+    phoneLink.textContent = phone || "Telephone a renseigner";
+  }
 
   const emailLink = document.getElementById("emailLink");
-  emailLink.href = email ? `mailto:${email}` : "#";
-  emailLink.textContent = email || "Email a renseigner";
+  if (emailLink) {
+    emailLink.href = emailHref;
+    emailLink.textContent = email || "Email a renseigner";
+  }
 
-  renderHeroHighlights(content.hero.highlights || []);
-  renderAboutCards(content.aboutSection.cards || []);
-  renderServices(content.services || []);
-  renderGallery(content.gallery || []);
+  const mobilePhoneLink = document.getElementById("mobilePhoneLink");
+  if (mobilePhoneLink) {
+    mobilePhoneLink.href = phoneHref;
+    mobilePhoneLink.textContent = phone ? "Appeler" : "Devis";
+  }
+
+  const mobileEmailLink = document.getElementById("mobileEmailLink");
+  if (mobileEmailLink) {
+    mobileEmailLink.href = emailHref;
+    mobileEmailLink.textContent = email ? "Email" : "Contact";
+  }
+}
+
+function setText(id, value) {
+  const node = document.getElementById(id);
+  if (node) node.textContent = value;
+}
+
+function renderContent(content) {
+  const safeContent = content || {};
+  const hero = safeContent.hero || {};
+  const aboutSection = safeContent.aboutSection || {};
+  const meta = safeContent.meta || {};
+
+  setText("heroEyebrow", hero.eyebrow || "");
+  setText("businessName", meta.businessName || "");
+  setText("footerBusinessName", meta.businessName || "");
+  setText("heroTitle", hero.title || "");
+  setText("heroSubtitle", hero.subtitle || "");
+  setText("heroPrimaryCta", hero.primaryCta || "Demander un devis");
+  setText("heroSecondaryCta", hero.secondaryCta || "Voir les realisations");
+  setText("heroPanelTitle", hero.panelTitle || "");
+  setText("aboutKicker", aboutSection.kicker || "");
+  setText("aboutTitle", aboutSection.title || "");
+  setText("aboutText", safeContent.about || "");
+  setText("ctaText", safeContent.cta || "");
+
+  const primaryCta = document.getElementById("heroPrimaryCta");
+  if (primaryCta) primaryCta.href = "#contact";
+
+  const secondaryCta = document.getElementById("heroSecondaryCta");
+  if (secondaryCta) secondaryCta.href = "#realisations";
+
+  applyContactLinks(meta.phone || "", meta.email || "");
+  renderHeroHighlights(hero.highlights || []);
+  renderAboutCards(aboutSection.cards || []);
+  renderServices(safeContent.services || []);
+  renderGallery(safeContent.gallery || []);
   registerReveals(document);
 }
 
@@ -207,10 +250,9 @@ async function init() {
     registerReveals(document);
     const content = await loadContent();
     renderContent(content);
-    document.getElementById("year").textContent = new Date().getFullYear();
+    setText("year", String(new Date().getFullYear()));
   } catch (error) {
-    const about = document.getElementById("aboutText");
-    about.textContent = "Le site est en cours de configuration.";
+    setText("aboutText", "Le site est en cours de configuration.");
     console.error(error);
   }
 }

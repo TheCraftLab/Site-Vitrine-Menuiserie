@@ -3,66 +3,92 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Menuiserie contemporaine - Site vitrine</title>
+    <title>Menuiserie sur mesure | Fenetres, portes, agencements</title>
     <meta
       name="description"
-      content="Menuiserie sur mesure: fabrication, rénovation et pose."
+      content="Menuiserie sur mesure pour renovation et neuf : fabrication, pose et finitions soignees."
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Urbanist:wght@400;500;600;700;800&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <div class="site-noise" aria-hidden="true"></div>
+    <div class="backdrop" aria-hidden="true"></div>
+
     <header class="masthead" id="accueil">
-      <div class="topbar">
-        <div class="container topbar-inner">
+      <div class="container topbar-wrap reveal">
+        <div class="topbar">
           <a href="#accueil" class="brand" id="businessName">Atelier Menuiserie Dupont</a>
-          <nav class="nav">
-            <a href="#a-propos">A propos</a>
-            <a href="#services">Services</a>
+          <nav class="nav" aria-label="Navigation principale">
+            <a href="#a-propos">Atelier</a>
+            <a href="#services">Prestations</a>
             <a href="#realisations">Realisations</a>
             <a href="#contact">Contact</a>
           </nav>
-          <a class="btn btn-sm" href="#contact">Parler du projet</a>
+          <a class="btn btn-sm" href="#contact">Demander un devis</a>
         </div>
       </div>
+
       <div class="container hero-grid">
         <div class="hero-copy reveal">
-          <p class="eyebrow" id="heroEyebrow">Agencement, renovation, sur mesure</p>
-          <h1 id="heroTitle">Votre menuisier sur mesure</h1>
+          <p class="eyebrow" id="heroEyebrow">Menuiserie artisanale et contemporaine</p>
+          <h1 id="heroTitle">Des menuiseries sur mesure, posees proprement.</h1>
           <p id="heroSubtitle">
-            Fenêtres, portes, parquets et agencements intérieurs avec finitions soignées.
+            De la prise de cotes a la pose finale, nous realisons des projets durables pour la maison et les espaces professionnels.
           </p>
           <div class="hero-actions">
             <a class="btn" href="#contact" id="heroPrimaryCta">Demander un devis</a>
             <a class="btn btn-ghost" href="#realisations" id="heroSecondaryCta">Voir les realisations</a>
           </div>
-        </div>
-        <aside class="hero-panel reveal">
-          <p class="panel-title" id="heroPanelTitle">Finition nette. Delais tenus.</p>
-          <ul id="heroHighlightsList">
-            <li>Intervention locale rapide</li>
-            <li>Materiaux bois, PVC, aluminium</li>
-            <li>Pose et details soignes</li>
+          <ul class="proof-list" id="heroHighlightsList">
+            <li>Devis detaille sous 48h</li>
+            <li>Materiaux bois, alu et PVC</li>
+            <li>Pose soignee et delais tenus</li>
           </ul>
+        </div>
+
+        <aside class="hero-panel reveal">
+          <p class="panel-kicker">Projet neuf ou renovation</p>
+          <h2 class="panel-title" id="heroPanelTitle">Un interlocuteur unique, du plan a la finition.</h2>
+          <div class="panel-stats">
+            <article>
+              <strong>+250</strong>
+              <span>chantiers livres</span>
+            </article>
+            <article>
+              <strong>4.8/5</strong>
+              <span>avis clients</span>
+            </article>
+            <article>
+              <strong>10 ans</strong>
+              <span>d'experience</span>
+            </article>
+          </div>
         </aside>
       </div>
     </header>
 
     <main>
-      <section class="section container reveal" id="a-propos">
-        <div class="section-head">
+      <section class="trust-band">
+        <div class="container trust-grid reveal">
+          <p><strong>Reponse rapide :</strong> retour sous 24h pour qualifier votre besoin.</p>
+          <p><strong>Intervention locale :</strong> visites techniques et conseils adaptes a votre chantier.</p>
+          <p><strong>Garantie :</strong> execution propre, materiaux selectionnes et suivi apres pose.</p>
+        </div>
+      </section>
+
+      <section class="section container" id="a-propos">
+        <div class="section-head reveal">
           <p class="section-kicker" id="aboutKicker">L'atelier</p>
-          <h2 id="aboutTitle">Un style precis, une execution propre</h2>
+          <h2 id="aboutTitle">Une menuiserie precise, pensee pour durer</h2>
         </div>
         <div class="about-grid">
-          <p id="aboutText"></p>
+          <p class="about-text reveal" id="aboutText"></p>
           <div class="about-cards" id="aboutCardsList"></div>
         </div>
       </section>
@@ -70,10 +96,41 @@
       <section class="section section-contrast" id="services">
         <div class="container">
           <div class="section-head reveal">
-            <p class="section-kicker">Savoir-faire</p>
-            <h2>Services de menuiserie moderne</h2>
+            <p class="section-kicker">Prestations</p>
+            <h2>Des solutions adaptees a chaque projet</h2>
           </div>
           <div class="cards" id="servicesList"></div>
+        </div>
+      </section>
+
+      <section class="section process">
+        <div class="container">
+          <div class="section-head reveal">
+            <p class="section-kicker">Methode</p>
+            <h2>Un process clair en 4 etapes</h2>
+          </div>
+          <div class="process-grid">
+            <article class="process-item reveal is-stagger" style="--i: 0">
+              <span>01</span>
+              <h3>Echange initial</h3>
+              <p>Vous decrivez votre besoin, vos contraintes et le niveau de finition attendu.</p>
+            </article>
+            <article class="process-item reveal is-stagger" style="--i: 1">
+              <span>02</span>
+              <h3>Visite et cotes</h3>
+              <p>Nous validons les dimensions, la technique et les options de materiaux.</p>
+            </article>
+            <article class="process-item reveal is-stagger" style="--i: 2">
+              <span>03</span>
+              <h3>Fabrication</h3>
+              <p>Chaque element est prepare selon votre interieur et votre usage quotidien.</p>
+            </article>
+            <article class="process-item reveal is-stagger" style="--i: 3">
+              <span>04</span>
+              <h3>Pose et controle</h3>
+              <p>Installation, reglages et controle final pour un rendu net et durable.</p>
+            </article>
+          </div>
         </div>
       </section>
 
@@ -86,24 +143,31 @@
       </section>
 
       <section class="section section-contact" id="contact">
-        <div class="container">
-          <div class="contact-card reveal">
-            <h2>Parlons de votre projet</h2>
-            <p id="ctaText"></p>
+        <div class="container contact-shell reveal">
+          <div class="contact-copy">
+            <p class="section-kicker">Votre projet</p>
+            <h2>Parlons de vos travaux de menuiserie</h2>
+            <p id="ctaText">Demandez un devis gratuit sous 48h.</p>
           </div>
           <div class="contact-grid">
-            <a id="phoneLink" href="#" class="reveal">Tel</a>
-            <a id="emailLink" href="#" class="reveal">Email</a>
+            <a id="phoneLink" href="#">06 00 00 00 00</a>
+            <a id="emailLink" href="#">contact@menuiserie-dupont.fr</a>
           </div>
         </div>
       </section>
     </main>
 
     <footer class="footer">
-      <div class="container">
+      <div class="container footer-inner">
         <small>© <span id="year"></span> <span id="footerBusinessName">Atelier Menuiserie Dupont</span></small>
+        <a href="#accueil">Retour en haut</a>
       </div>
     </footer>
+
+    <div class="mobile-cta" aria-label="Actions rapides">
+      <a id="mobilePhoneLink" href="#contact">Appeler</a>
+      <a id="mobileEmailLink" href="#contact">Email</a>
+    </div>
 
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" hidden>
       <button type="button" id="lightboxClose" class="lightbox-close" aria-label="Fermer">X</button>
